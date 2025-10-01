@@ -1,0 +1,1 @@
+## you can use "npm i" command to install everything in frontend terminal
