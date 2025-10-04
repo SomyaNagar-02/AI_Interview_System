@@ -1,126 +1,70 @@
+
 import React, { useState } from "react";
 import "./EditProfile.css";
 
-const EditProfileApplicant = () => {
-  const [formData, setFormData] = useState({
+export default function ApplicantProfilePage() {
+  const [form, setForm] = useState({
     name: "",
     email: "",
-    country: "",
     phone: "",
-    password: "",
-    skills: "",
     location: "",
+    country: "",
+    dob: "",
+    skills: "",
+    experience: "",
+    education: "",
+    linkedin: "",
+    summary: "",
+    photo: ""
   });
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
+  const handleChange = e => {
+    const { name, value, files } = e.target;
+    setForm(prev => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: name === "photo" ? files[0] : value
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    // Add form submission logic here
-    alert("Profile updated");
+    // Save form logic here
+    alert("Profile updated!");
   };
 
   return (
-    <div className="editprofile-bg">
+    <div className="profile-root">
       <form className="profile-form" onSubmit={handleSubmit}>
-        <div className="profile-form-header">
-          <h2>Edit Profile</h2>
-          <button
-            type="button"
-            className="close-btn"
-            onClick={() => window.history.back()}
-            title="Close"
-          >
-            ×
-          </button>
+        <h2>Edit Profile</h2>
+        <div className="profile-photo-section">
+          <input
+            type="file"
+            name="photo"
+            accept="image/*"
+            onChange={handleChange}
+            className="photo-upload"
+          />
+          <div className="photo-circle">
+            {form.photo ? (
+              <img src={URL.createObjectURL(form.photo)} alt="Profile" className="photo-preview" />
+            ) : (
+              <span role="img" aria-label="avatar">👤</span>
+            )}
+          </div>
         </div>
-
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          autoComplete="off"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email address"
-          value={formData.email}
-          onChange={handleChange}
-          autoComplete="off"
-          required
-        />
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={formData.country}
-          onChange={handleChange}
-          autoComplete="off"
-          required
-        />
-        <input
-          type="text"
-          name="phone"
-          placeholder="Phone"
-          value={formData.phone}
-          onChange={handleChange}
-          autoComplete="off"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          autoComplete="off"
-          required
-        />
-        <input
-          type="text"
-          name="skills"
-          placeholder="Skills (comma-separated)"
-          value={formData.skills}
-          onChange={handleChange}
-          autoComplete="off"
-          required
-        />
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={formData.location}
-          onChange={handleChange}
-          autoComplete="off"
-          required
-        />
-
-        <div className="checkbox-group">
-          <input type="checkbox" id="terms" required />
-          <label htmlFor="terms">
-            I confirm my information is correct and agree to the privacy policy.
-          </label>
-        </div>
-
-        <button type="submit" className="profile-btn">
-          SAVE CHANGES
-        </button>
-
-        <div className="profile-form-footer">
-          <span>Back to dashboard</span>
-        </div>
+        <input type="text" name="name" placeholder="Full Name" value={form.name} onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
+        <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} required />
+        <input type="text" name="location" placeholder="Location (City, State)" value={form.location} onChange={handleChange} required />
+        <input type="text" name="country" placeholder="Country" value={form.country} onChange={handleChange} required />
+        <input type="date" name="dob" placeholder="Date of Birth" value={form.dob} onChange={handleChange} />
+        <input type="text" name="skills" placeholder="Skills (comma separated)" value={form.skills} onChange={handleChange} />
+        <textarea name="summary" placeholder="Short professional summary" value={form.summary} onChange={handleChange} rows={2} />
+        <textarea name="experience" placeholder="Experience" value={form.experience} onChange={handleChange} rows={2} />
+        <textarea name="education" placeholder="Education" value={form.education} onChange={handleChange} rows={2} />
+        <input type="url" name="linkedin" placeholder="LinkedIn Profile" value={form.linkedin} onChange={handleChange} />
+        <button type="submit" className="profile-btn">Save Profile</button>
       </form>
     </div>
   );
-};
-
-export default EditProfileApplicant;
+}
