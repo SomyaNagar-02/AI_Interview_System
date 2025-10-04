@@ -34,7 +34,10 @@ const results = [
 
 export default function InterviewResultPage() {
   return (
+    <div className="heading">
+        <h2>Interview Results</h2>
     <div className="result-root">
+        
       {results.map((result, idx) => (
         <div className={`result-card status-${result.status.toLowerCase()}`} key={idx}>
           <h2>Interview Result</h2>
@@ -51,6 +54,7 @@ export default function InterviewResultPage() {
           <div className="result-comments">{result.comments}</div>
         </div>
       ))}
+    </div>
     </div>
   );
 }
