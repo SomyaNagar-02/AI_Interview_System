@@ -1,0 +1,57 @@
+.notif-root {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #181f34 73%, #24e3e1 120%);
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notif-header {
+  width: 100%;
+  color: #46eedd;
+  font-size: 1.7rem;
+  font-weight: bold;
+  padding: 3.2rem 0 1.5rem 0;
+  text-align: center;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.notif-list {
+  width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.notif-card {
+  background: #222a4d;
+  border-radius: 10px;
+  box-shadow: 0 2px 14px #161c3760;
+  padding: 1.2rem 1.4rem;
+  color: #e0eafd;
+  font-size: 1.09rem;
+  display: flex;
+  flex-direction: column;
+  border-left: 5px solid #43eede;
+  position: relative;
+}
+
+.notif-card.interview   { border-left-color: #2beeb2; }
+.notif-card.result      { border-left-color: #ed466a; }
+.notif-card.status      { border-left-color: #23b6ea; }
+
+.notif-message {
+  margin-bottom: 7px;
+}
+.notif-time {
+  color: #72e0fa;
+  font-size: 0.96rem;
+  margin-left: 3px;
+  margin-top: 2px;
+}

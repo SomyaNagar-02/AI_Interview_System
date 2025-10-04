@@ -1,0 +1,191 @@
+html, body {
+  background: linear-gradient(120deg, #5679e4 0%, #3451a1 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.jobs-root {
+  max-width: 1030px;
+  margin: 56px auto 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 24px;
+  color: #6f8fc2;
+}
+
+.jobs-root h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #e5eafe;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 12px rgba(86,121,228,0.18);
+}
+
+.jobs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 32px;
+}
+
+.job-card {
+  background: rgba(249,250,251, 0.95);
+  border-radius: 20px;
+  padding: 28px 26px 24px 26px;
+  box-shadow: 0 8px 32px 0 rgba(44, 91, 215, 0.10), 0 2px 4px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 
+    transform 0.19s cubic-bezier(.06,.67,.64,.97),
+    box-shadow 0.18s cubic-bezier(.06,.67,.64,.97),
+    background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.job-card:hover {
+  transform: translateY(-7px) scale(1.025);
+  box-shadow: 0 14px 48px 0 rgba(21,40,100,0.17), 0 2px 4px rgba(0,0,0,0.08);
+  background: rgba(249,250,251, 0.99);
+}
+
+.job-card.closed {
+  background: #d5dae3;
+  opacity: 0.74;
+  pointer-events: none;
+  filter: grayscale(0.37);
+  box-shadow: none;
+}
+
+.job-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.job-header h3 {
+  font-size: 1.28rem;
+  font-weight: 700;
+  color: #172148;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.job-company {
+  font-size: 1.01rem;
+  color: #6983b1;
+  font-weight: 500;
+}
+
+.job-location {
+  font-weight: 600;
+  font-size: 1.02rem;
+  margin-top: 6px;
+  color: #294ba1;
+}
+
+.job-desc {
+  font-size: 1.08rem;
+  color: #43537a;
+  margin: 18px 0 22px 0;
+  flex-grow: 1;
+  line-height: 1.6;
+}
+
+.job-apply-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.resume-upload {
+  flex-grow: 1;
+  font-size: 1rem;
+  padding: 7px 13px;
+  border-radius: 8px;
+  border: 1.5px solid #b5cfff;
+  background: #fafdff;
+  outline: none;
+  transition: border 0.22s, box-shadow 0.18s;
+  box-shadow: 0 1px 4px 0 rgba(37, 99, 235, 0.07);
+}
+
+.resume-upload:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px #2563eb22;
+}
+
+.apply-btn {
+  background: linear-gradient(92deg, #376bdd 45%, #2563eb 100%);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 14px;
+  padding: 10px 34px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.09);
+  transition: 
+    background 0.21s,
+    box-shadow 0.20s;
+}
+
+.apply-btn:hover, .apply-btn:focus {
+  background: linear-gradient(90deg, #214bb8 10%, #1d4ed8 90%);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.13);
+}
+
+.closed-btn {
+  background: #94a3b8;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 32px;
+  font-weight: 600;
+  cursor: not-allowed;
+  opacity: 0.8;
+  box-shadow: none;
+}
+
+/* Extra polish: Custom file upload styling */
+.resume-upload::-webkit-file-upload-button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.resume-upload:hover::-webkit-file-upload-button {
+  background: #1d4ed8;
+}
+
+.resume-upload::file-selector-button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.resume-upload:hover::file-selector-button {
+  background: #1d4ed8;
+}
+
+/* Smooth fade-in for cards */
+.job-card {
+  opacity: 0;
+  animation: fadeIn 0.6s cubic-bezier(.27,.74,.65,.99) forwards;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+
