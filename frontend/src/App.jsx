@@ -9,6 +9,12 @@ import NotificationsPage from "./Applicant/NotificationsPage";
 import JobPosting from "./Applicant/JobPosting"
 import InterviewPage from "./Applicant/InterviewPage";
 import Results from "./Applicant/Results";
+import { DashboardLayout } from './Interviewer/DashboardLayout';
+import { Dashboard } from './Interviewer/Dashboard';
+import {Notifications} from './Interviewer/Notifications';
+import {ProfileSettings} from './Interviewer/ProfileSettings';
+import { Candidates } from './Interviewer/Candidates';
+import { Jobposts } from './Interviewer/Jobposts';
 
 function App() {
   return (
@@ -24,6 +30,13 @@ function App() {
         <Route path="/JobPosting" element={<JobPosting/>} />
         <Route path="/InterviewPage" element={<InterviewPage/>} />
         <Route path="/Results" element={<Results/>} />
+        <Route path="/InterviewerDashboard" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="settings" element={<ProfileSettings />} />
+          <Route path="candidates" element={<Candidates/>} />
+          <Route path="jobs" element={<Jobposts/>} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

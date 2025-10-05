@@ -1,6 +1,7 @@
 import React from "react";
 import "./HomePage.css";
 import logo from '../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 
 const featuresData = [
@@ -43,6 +44,7 @@ const featuresData = [
 ];
 
 export default function HomePage() {
+  const navigate=useNavigate();
   return (
     <div className="ehome-root">
       <header className="ehome-header">
@@ -65,7 +67,8 @@ export default function HomePage() {
           <p>
             Automate your recruitment pipeline and empower candidates with personalized AI interviews and insights.
           </p>
-          <a href="/signup" className="signup-btn">Get Started</a>
+          
+          <button className="signup-btn" onClick={() => navigate('/ApplicantDashboard')}>Get Started</button>
         </section>
 
         <section id="features" className="ehome-section">

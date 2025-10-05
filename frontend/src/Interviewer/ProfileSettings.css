@@ -1,0 +1,37 @@
+.settings-form {
+  max-width: 700px;
+}
+
+.form-section {
+  background-color: var(--bg-medium);
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.form-section h2 {
+  margin-top: 0;
+  border-bottom: 1px solid var(--bg-dark);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  background-color: var(--bg-dark);
+  border: 1px solid var(--primary-accent);
+  color: var(--text-primary);
+  padding: 12px 15px;
+  border-radius: 5px;
+  font-size: 1em;
+}
