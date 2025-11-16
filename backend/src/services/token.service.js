@@ -1,4 +1,4 @@
-import User from "../models/user.model.js";
+import User from "../models/user.models.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/generateToken.js";
 import jwt from "jsonwebtoken";
 
