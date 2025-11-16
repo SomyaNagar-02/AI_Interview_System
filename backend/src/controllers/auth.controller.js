@@ -1,4 +1,4 @@
-import User from '../models/user.model.js';
+import User from '../models/user.models.js';
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -6,7 +6,7 @@ import {
   assignTokens,
   verifyRefreshToken,
   revokeRefreshToken
-} from "../services/tokenService.js";
+} from "../services/token.service.js";
 
 //====================== REGISTER ======================
 export const registerUser = asyncHandler(async (req, res) => {
