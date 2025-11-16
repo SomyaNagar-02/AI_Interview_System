@@ -13,7 +13,7 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 //routes import
-import authRoutes from "./routes/auth.routes.js";
+import authRoutes from "./src/routes/auth.routes.js";
 
 //routes
 app.use("/api/v1/auth", authRoutes);
