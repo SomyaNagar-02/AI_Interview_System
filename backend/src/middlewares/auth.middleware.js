@@ -16,7 +16,7 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
 
     const decodeToken = verifyAccessToken(token);
 
-    const user = await User.findById(decodeToken?._id) //this _id is token id not mondoDB data id
+    const user = await User.findById(decodeToken?.id) //this _id is token id not mondoDB data id
       .select("-password -refreshToken");
 
     if (!user) {
