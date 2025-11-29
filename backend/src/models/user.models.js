@@ -7,7 +7,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ["applicant", "recruiter"], required: true },
   contact: String,
-  profilePic: String
+  profilePic: String,
+  hasProfile: { 
+    type: Boolean, 
+    default: false 
+  },
 }, { timestamps: true });
 
 //Hash password before save
