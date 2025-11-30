@@ -7,7 +7,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ["applicant", "recruiter"], required: true },
   contact: String,
-  profilePic: String
+  profilePic: String,
+  hasProfile: { 
+    type: Boolean, 
+    default: false 
+  },
 }, { timestamps: true });
 
 //Hash password before save
@@ -20,6 +24,7 @@ userSchema.pre("save", async function(next) {
 
 //Compare entered password with stored hash
 userSchema.methods.matchPassword = async function(enteredPassword) {
+  console.log(enteredPassword , this.password)
   return await bcrypt.compare(enteredPassword, this.password);
 };
 

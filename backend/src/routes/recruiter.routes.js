@@ -4,7 +4,7 @@ import { setRecruiterDetails  ,getRecruiterProfile ,editProfile ,deleteProfile} 
 const router = express.Router()
 
 router.post("/setRecruiterDetails" , verifyJWT , setRecruiterDetails )
-router.get("/getRecruiterDetails/:userId" , verifyJWT , getRecruiterProfile )
+router.get("/getRecruiterDetails" , verifyJWT , getRecruiterProfile )
 router.put("/editRecruiter" , verifyJWT , editProfile);
 router.delete("/deleteProfile" , verifyJWT ,deleteProfile)
-export default router;
+export default router; 

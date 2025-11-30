@@ -6,7 +6,8 @@ import User from "../models/user.models.js";
 
 //================setting up recruiter details =============
 export const setRecruiterDetails = asyncHandler(async (req, res) => {
-  const { userId, companyName, description, website } = req.body;
+  const {  companyName, description, website } = req.body;
+  const userId =  req.user._id;
   if (!userId || !companyName) {
     throw new ApiError(404, "user id or companyname not found ");
   }
@@ -37,7 +38,7 @@ export const setRecruiterDetails = asyncHandler(async (req, res) => {
 });
 //============getting up receuiter detail==============
 export const getRecruiterProfile = asyncHandler(async (req, res) => {
-  const { userId } = req.params;
+  const userId = req.user._id;
   if (!userId) {
     throw new ApiError(400, "user id not found");
   }
@@ -46,6 +47,7 @@ export const getRecruiterProfile = asyncHandler(async (req, res) => {
   if (!recruiterDetail) {
     throw new ApiError(404, "recruiter doesnt exist");
   }
+ 
   return res
     .status(200)
     .json(new ApiResponse(200, recruiterDetail, " profile fetched"));
@@ -53,7 +55,7 @@ export const getRecruiterProfile = asyncHandler(async (req, res) => {
 
 //===========delete profile ==================
 export const deleteProfile = asyncHandler(async (req, res) => {
-  const { userId } = req.body;
+  const userId =  req.user._id;
   if (!userId) {
     throw new ApiError(404, "Userid not found in the request");
   }
@@ -65,7 +67,7 @@ export const deleteProfile = asyncHandler(async (req, res) => {
       "user Doesnt exist , please share the correct userId"
     );
   }
-
+   
   const isDeleted = await Recruiter.deleteOne({ userId });
   if (isDeleted.deletedCount === 0) {
     throw new ApiError(
@@ -78,17 +80,17 @@ export const deleteProfile = asyncHandler(async (req, res) => {
 });
 //==============Edit Profile function===================
 export const editProfile = asyncHandler(async (req, res) => {
-  const { userId, companyName, description, website } = req.body;
-
-  const recruiter = Recruiter.findOne({ userId });
+  const { companyName, description, website } = req.body;
+const userId=req.user._id;
+  const recruiter = await Recruiter.findOne({ userId });
   if (!recruiter) {
     throw new ApiError(404, "recruiter not found");
   }
   const updateData = {};
   if (companyName) updateData.companyName = companyName;
   if (description) updateData.description = description;
-  if (website) updateData.description = website;
-  if (Object.keys(updateData) === 0) {
+  if (website) updateData.website = website;
+  if (Object.keys(updateData).length === 0) {
     throw new ApiError(400, "No feilds Provided to update");
   }
 

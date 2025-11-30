@@ -5,7 +5,6 @@ import Job from "../models/job.models.js";
 import Recruiter from "../models/recruiter.models.js";
 export const addJobs = asyncHandler(async (req, res) => {
   const {
-    userId,
     title,
     description,
     location,
@@ -16,6 +15,7 @@ export const addJobs = asyncHandler(async (req, res) => {
     jobType,
     atsCriteria,
   } = req.body;
+  const userId =  req.user._id;
   if (!userId || !title) {
     throw new ApiError(400, "recruiter or title  not found ");
   }
@@ -50,7 +50,6 @@ export const addJobs = asyncHandler(async (req, res) => {
 export const editJob = asyncHandler(async (req, res) => {
   const {
     jobId,
-    recruiterId,
     title,
     description,
     location,
@@ -61,7 +60,7 @@ export const editJob = asyncHandler(async (req, res) => {
     jobType,
     atsCriteria,
   } = req.body;
-
+const recruiterId = req.user._id
   const recruiter = await Recruiter.findOne({ userId: recruiterId });
 
   if (!recruiter) {
@@ -71,6 +70,10 @@ export const editJob = asyncHandler(async (req, res) => {
   const job = await Job.findById(jobId);
   if (!job) {
     throw new ApiError(404, "job doesnt exist ");
+  }
+
+  if(job.recruiterId.toString()!==recruiterId.toString()){
+    throw new ApiError(403 , "you are not allowred to edit this job")
   }
 
   const updateData = {};
@@ -98,9 +101,13 @@ export const deleteJob = asyncHandler(async (req, res) => {
   if (!jobId) {
     throw new ApiError(404, "job id not found");
   }
+  const recruiterId=req.user._id;
   const job = await Job.findById(jobId);
   if (!job) {
     throw new ApiError(404, "job not found");
+  }
+    if(job.recruiterId.toString()!==recruiterId.toString()){
+    throw new ApiError(403 , "you are not allowred to edit this job")
   }
   console.log(job);
 
@@ -115,7 +122,7 @@ export const deleteJob = asyncHandler(async (req, res) => {
 //==============GET JOBS===========
 
 export  const getAllJobs = asyncHandler(async (req, res) => {
-  const { recruiterId } = req.params;
+  const recruiterId = req.user._id;
   if (!recruiterId) {
     throw new ApiError(404, "user id not found");
   }

@@ -47,7 +47,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     .status(201)
     .cookie("accessToken", accessToken, { httpOnly: true })
     .cookie("refreshToken", refreshToken, { httpOnly: true })
-    .json(new ApiResponse(201, {createdUser, accessToken, refreshToken}, "User registered successfully"))
+    .json(new ApiResponse(201, { user: createdUser, accessToken, refreshToken}, "User registered successfully"))
 
   }
   catch (error) {
@@ -58,15 +58,17 @@ export const registerUser = asyncHandler(async (req, res) => {
 // ====================== LOGIN ======================
 export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-
-  const user = await User.findOne({ email });
+console.log(password)
+  const user = await User.findOne({ email }).select("-refreshToken");
+ 
   if (!user) throw new ApiError(404, "User not found");
 
   const isMatch = await user.matchPassword(password);
   if (!isMatch) throw new ApiError(401, "Invalid credentials");
+user.password = undefined;
 
   const { accessToken, refreshToken } = await assignTokens(user._id);
-
+  
   return res
     .status(200)
     .cookie("accessToken", accessToken, { httpOnly: true })
