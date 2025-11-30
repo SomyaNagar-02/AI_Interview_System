@@ -121,7 +121,7 @@ export const deleteApplicantProfile = asyncHandler(async (req, res) => {
 export const uploadProfilePic = asyncHandler(async (req, res) => {
     const userId = req.user._id;
     
-    if(req.file?.path){
+    if(!req.file?.path){
         throw new ApiError(400, "File upload failed");
     }
 
