@@ -1,9 +1,12 @@
 import mongoose from "mongoose";
 import { GridFsStorage } from "multer-gridfs-storage";
 import multer from "multer";
+// import dotenv from "dotenv";
+// dotenv.config();
 
 let gfsBucket;
 
+// Create GridFS bucket when connection opens
 mongoose.connection.once("open", () => {
   gfsBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
     bucketName: "resumes"
@@ -12,7 +15,7 @@ mongoose.connection.once("open", () => {
 });
 
 const storage = new GridFsStorage({
-  url: process.env.MONGO_URI,
+  url: process.env.MONGODB_URL,
   file: (req, file) => {
     return {
       filename: `${req.user._id}_${Date.now()}_${file.originalname}`,
