@@ -9,8 +9,9 @@ import Applicant from "../models/applicant.models.js";
 export const createApplicantProfile = asyncHandler(async (req, res) => {
   const { skills, experience, education, projects } = req.body;
   const userId = req.user._id;
-
+  
   const user = await User.findById(userId);
+  if(user.role.toLowerCase()==="recruiter")throw new ApiError(404 , "user is a recruiter")
   if (!user) throw new ApiError(404, "User not found");
 
   const existingProfile = await Applicant.findOne({ userId });
