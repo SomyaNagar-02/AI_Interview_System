@@ -48,10 +48,11 @@ export default function HomePage() {
   return (
     <div className="ehome-root">
       <header className="ehome-header">
-        <img src={logo} alt="Logo" className="ehome-logo" />
+        {/* <img src={logo} alt="Logo" className="ehome-logo" /> */}
+        <h1 className="ehome-logo">SelectX</h1>
         <nav className="ehome-nav">
           <a href="#features">Features</a>
-          <a href="#how-it-works">How It Works</a>
+          <a href="#how-it-works">Working</a>
           <a href="#about">About</a>
           {/* <a href="#contact">Contact</a> */}
           <a href="/login" className="login-btn">Login</a>
@@ -114,16 +115,48 @@ export default function HomePage() {
         Applicants and selectors view results, get notifications, and manage selections through a unified dashboard.
       </p>
     </div>
+    <div className="howworks-card">
+  <b>AI Resume Screening & Ranking</b>
+  <p>
+    Our AI automatically parses, analyzes, and ranks your resume against job requirements, highlighting skill matches and ensuring you're matched with the right opportunities.
+  </p>
+</div>
+
+<div className="howworks-card">
+  <b>Get Detailed AI Feedback</b>
+  <p>
+    Receive comprehensive performance reports with AI-generated insights on your strengths, areas for improvement, communication skills, and technical competency after each interview.
+  </p>
+</div>
+
   </div>
 </section>
 
+   <section id="about" className="howworks-section">
+  <h2 className="section-title">About AI Interview System</h2>
 
-        <section id="about" className="ehome-section">
-          <h2 className="section-title">About AI Interview System</h2>
-          <p>
-            Our AI-powered interview system is designed to simplify and enhance the hiring process by combining advanced artificial intelligence with intuitive assessment tools. The platform enables organizations to conduct smart, unbiased, and efficient interviews, saving time while ensuring fair candidate evaluation. With features like automated question generation, real-time analysis, and detailed performance insights, our system empowers recruiters to identify the best talent quickly and accurately. Whether for technical, behavioral, or aptitude-based interviews, our solution provides a seamless experience for both candidates and employers.
-          </p>
-        </section>
+  <p className="about-text">
+    The AI Interview System is built to make hiring faster, smarter, and more
+    transparent for both applicants and recruiters. Our platform combines modern
+    AI technology with a simple and user-friendly workflow to help organizations
+    conduct fair and efficient interviews.
+  </p>
+
+  <p className="about-text">
+    Applicants can build profiles, apply for jobs, appear for coding or voice
+    interviews, and track their progress through a dedicated dashboard. Recruiters
+    get powerful tools to post jobs, screen candidates using AI, conduct interviews,
+    and analyze detailed performance insights.
+  </p>
+
+  <p className="about-text">
+    Our goal is to reduce manual work, eliminate bias, and create a smooth hiring
+    experience—all in one unified platform. Whether you're applying for your dream
+    job or hiring the right talent, the AI Interview System supports you at every
+    step of the recruitment journey.
+  </p>
+</section>
+
 {/* 
         <section id="contact" className="ehome-section">
           <h2 className="section-title">Get In Touch</h2>
