@@ -17,11 +17,13 @@ import authRoutes from "./src/routes/auth.routes.js";
 import recruiterRoutes from"./src/routes/recruiter.routes.js"
 import jobRoutes from "./src/routes/job.routes.js";
 import applicantRoutes from "./src/routes/applicant.routes.js";
+//import applicationRoutes from "./src/routes/application.routes.js"
 
 //routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/recruiter" , recruiterRoutes);
 app.use("/api/v1/job" ,jobRoutes)
-app.use("/api/v1/applicant" , applicantRoutes)
+app.use("/api/v1/applicant" , applicantRoutes);
+//app.use("/api/v1/application", applicationRoutes);
 
 export {app}

@@ -58,9 +58,8 @@ export const registerUser = asyncHandler(async (req, res) => {
 // ====================== LOGIN ======================
 export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-console.log(password)
+
   const user = await User.findOne({ email }).select("-refreshToken");
- 
   if (!user) throw new ApiError(404, "User not found");
 
   const isMatch = await user.matchPassword(password);
@@ -68,7 +67,9 @@ console.log(password)
 user.password = undefined;
 
   const { accessToken, refreshToken } = await assignTokens(user._id);
-  
+
+  user.password = undefined; // Remove password from response
+
   return res
     .status(200)
     .cookie("accessToken", accessToken, { httpOnly: true })
