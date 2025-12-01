@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // ... keep your existing imports ...
@@ -10,6 +9,9 @@ import ApplicantDashboard from "./Applicant/ApplicantDashboard";
 import NotificationsPage from "./Applicant/NotificationsPage";
 import JobPosting from "./Applicant/JobPosting";
 import InterviewPage from "./Applicant/InterviewPage";
+import Profile from "./Applicant/Profile";
+
+
 import Results from "./Applicant/Results";
 import { DashboardLayout}  from "./Interviewer/DashboardLayout";
 import { Dashboard } from "./Interviewer/Dashboard";
@@ -54,6 +56,17 @@ function App() {
             </ProtectedRoute>
           }
         />
+        
+<Route
+  path="/profile"
+  element={
+    <ProtectedRoute allowedRole="applicant">
+      <Profile />
+    </ProtectedRoute>
+  }
+/>
+        
+
         <Route 
           path="/EditProfile" 
           element={
