@@ -1,30 +1,55 @@
+import "dotenv/config";
 import mongoose from "mongoose";
-import { GridFsStorage } from "multer-gridfs-storage";
 import multer from "multer";
-// import dotenv from "dotenv";
-// dotenv.config();
+import { Readable } from "stream";
 
 let gfsBucket;
 
-// Create GridFS bucket when connection opens
+// Initialize GridFS Bucket
 mongoose.connection.once("open", () => {
-  gfsBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-    bucketName: "resumes"
-  });
-  console.log("GridFS bucket initialized");
-});
-
-const storage = new GridFsStorage({
-  url: process.env.MONGODB_URL,
-  file: (req, file) => {
-    return {
-      filename: `${req.user._id}_${Date.now()}_${file.originalname}`,
-      bucketName: "resumes"
-    };
+  if (mongoose.connection.db) {
+    gfsBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: "resumes",
+    });
+    console.log("GridFS bucket initialized");
   }
 });
 
+// 1. CONFIG: Use Memory Storage (Keep file in RAM briefly)
+const storage = multer.memoryStorage();
 export const uploadResumeMulter = multer({ storage });
 
-export const getResumeStream = (id) =>
-  gfsBucket.openDownloadStream(new mongoose.Types.ObjectId(id));
+// 2. HELPER: Manual Upload Function
+export const uploadToGridFS = (file, userId) => {
+  return new Promise((resolve, reject) => {
+    if (!gfsBucket) {
+      return reject(new Error("GridFS Bucket not initialized"));
+    }
+
+    const filename = `${userId}_${Date.now()}_${file.originalname}`;
+    
+    // Create an upload stream to MongoDB
+    const uploadStream = gfsBucket.openUploadStream(filename, {
+      contentType: file.mimetype,
+      metadata: { userId: userId } 
+    });
+
+    // FIX: The ID is available on the stream object immediately
+    const fileId = uploadStream.id;
+
+    // Convert buffer to stream and pipe to MongoDB
+    const readStream = Readable.from(file.buffer);
+    readStream.pipe(uploadStream)
+      .on("error", (error) => reject(error))
+      .on("finish", (record) => {
+        // 'record' contains the file metadata, including _id
+        resolve(fileId); 
+      });
+  });
+};
+
+// 3. HELPER: Download Stream (Same as before)
+export const getResumeStream = (id) => {
+  if (!gfsBucket) throw new Error("GridFS Bucket not initialized");
+  return gfsBucket.openDownloadStream(new mongoose.Types.ObjectId(id));
+};

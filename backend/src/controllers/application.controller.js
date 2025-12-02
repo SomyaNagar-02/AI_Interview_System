@@ -4,22 +4,27 @@ import Applicant from "../models/applicant.models.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { getResumeStream } from "../config/gridfs.js";
+// FIX: Import the new helper function
+import { getResumeStream, uploadToGridFS } from "../config/gridfs.js"; 
 
 //==================== APPLY FOR JOB (APPLICANT) ====================
 export const applyJob = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   const { jobId } = req.params;
 
-  if (!req.file?.id)
+  // 1. Check if file exists in memory
+  if (!req.file) {
     throw new ApiError(400, "Resume upload required to apply");
+  }
 
-  const resumeId = req.file.id;
+  // 2. Manually upload to GridFS and get the ID
+  // Note: We await this because it's a database operation now
+  const resumeId = await uploadToGridFS(req.file, userId);
 
   const application = await Application.create({
     jobId,
     applicantId: userId,
-    resumeUrl: resumeId
+    resumeUrl: resumeId // Store the ID we just got
   });
 
   await Applicant.findOneAndUpdate(
@@ -33,6 +38,7 @@ export const applyJob = asyncHandler(async (req, res) => {
 });
 
 //==================== VIEW RESUME (RECRUITER) ====================
+// (This function stays mostly the same, just keep it for context)
 export const viewResume = asyncHandler(async (req, res) => {
   const fileId = req.params.fileId;
 
@@ -46,7 +52,6 @@ export const viewResume = asyncHandler(async (req, res) => {
     "Content-Disposition",
     `inline; filename="${file.filename}"`
   );
-
   res.setHeader("Content-Type", file.contentType || "application/pdf");
 
   const stream = getResumeStream(fileId);

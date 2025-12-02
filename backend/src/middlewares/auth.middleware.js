@@ -31,3 +31,21 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
     )
   }
 });
+
+// Generic Role Checker
+export const authorizeRoles = (...allowedRoles) => {
+  return asyncHandler(async (req, res, next) => {
+    // 1. Check if user is logged in (verifyJWT should run before this)
+    if (!req.user) {
+        throw new ApiError(401, "Unauthorized request");
+    }
+
+    // 2. Check if the user's role is in the allowed list
+    // (We convert to lowercase just to be safe)
+    if (!allowedRoles.includes(req.user.role.toLowerCase())) {
+        throw new ApiError(403, "Access Denied: You do not have permission to access this resource");
+    }
+
+    next();
+  });
+};
