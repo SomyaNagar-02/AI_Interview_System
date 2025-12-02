@@ -160,7 +160,7 @@ export const getAllJobsWithRecruiter =asyncHandler(async(req , res)=>{
       },
     },
 
-{$unwind:{path:"recruiterInfo" , preserveNullAndEmptyArrays:true}},
+{$unwind:{path:"$recruiterInfo" , preserveNullAndEmptyArrays:true}},
 {
   $project:{
     title:1,
@@ -188,7 +188,7 @@ export const getAllJobsWithRecruiter =asyncHandler(async(req , res)=>{
 
   ]
 
-  const jobs = Job.aggregate(pipeline);
+  const jobs = await Job.aggregate(pipeline);
   const totalCount =await Job.countDocuments(match);
    return res
     .status(200)
