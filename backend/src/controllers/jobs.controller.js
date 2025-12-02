@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import Job from "../models/job.models.js";
 import Recruiter from "../models/recruiter.models.js";
+import mongoose from "mongoose";
 export const addJobs = asyncHandler(async (req, res) => {
   const {
     title,
@@ -130,6 +131,68 @@ export  const getAllJobs = asyncHandler(async (req, res) => {
   
   return res.status(200).json(new ApiResponse(200, jobs, "jobs fetched"))
 
+});
+//=============getalljobs==========
+
+export const getAllJobsWithRecruiter =asyncHandler(async(req , res)=>{
+  const page  = Math.max(1 , parseInt(req.query.page||"1"));
+  const limit =Math.min(30 , parseInt(req.query.limit||"10"));
+  const skip =(page-1)*limit;
+  const match ={};
+  if(req.query.location)match.location = req.query.location;
+  if(req.query.jobType)match.jobType =req.query.jobType;
+  if(req.query.search){
+    match.$or=[
+      {title:{$regex:text , $option:"i"}},
+      {description:{$regex:text , $option:"i"}},
+      {companyName:{$regex:text , $option:"i"}}
+    ];
+  }
+
+  const pipeline=[
+    {$match:match},
+    {
+      $lookup:{
+        from:"recruiters",
+        localField:"recruiterId",
+        foreignField:"userId",
+        as:"recruiterInfo",
+      },
+    },
+
+{$unwind:{path:"recruiterInfo" , preserveNullAndEmptyArrays:true}},
+{
+  $project:{
+    title:1,
+    description:1,
+    location:1,
+    skillsRequired:1,
+    experienceRequired:1,
+    salaryRange:1,
+    jobType:1,
+    atsCriteria:1,
+    createdAt:1,
+    updatedAt:1,
+    recruiter:{
+      _id:"$recruiterInfo._id",
+      userId:"recruiterInfo.userId",
+      companyName:"recruiterInfo.companyName",
+      website:"$recuiterInfo.website"
+    }
+  }
+},
+{$sort:{createdAt:-1}},
+{$skip:skip},
+{$limit:limit}
+
+
+  ]
+
+  const jobs = Job.aggregate(pipeline);
+  const totalCount =await Job.countDocuments(match);
+   return res
+    .status(200)
+    .json(new ApiResponse(200, { jobs, total: totalCount, page, limit }, "Jobs fetched"));
 });
 
 

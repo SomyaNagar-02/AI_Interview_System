@@ -7,4 +7,7 @@ router.post("/addJob" , verifyJWT ,addJobs );
 router.put("/updateJob" , verifyJWT , editJob);
 router.delete("/deleteJob/:jobId" , verifyJWT , deleteJob);
 router.get("/getJobs/:recruiterId" , verifyJWT , getAllJobs);
+// jobs.route.js
+router.get("/allWithRecruiter", getAllJobsWithRecruiter); // public or protected as you need
+
 export default router;
