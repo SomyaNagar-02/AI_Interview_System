@@ -78,7 +78,7 @@ export const getApplicantProfile = asyncHandler(async (req, res) => {
     location: applicantProfile?.location || "",
     country: applicantProfile?.country || "",
     dob: applicantProfile?.dob || "",
-    
+    profilePic: user.profilePic || "",
     skills: applicantProfile?.skills || [],
     experience: applicantProfile?.experience || "",
     education: applicantProfile?.education || "",

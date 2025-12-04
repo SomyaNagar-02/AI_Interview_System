@@ -171,6 +171,7 @@ export const getAllJobsWithRecruiter =asyncHandler(async(req , res)=>{
     salaryRange:1,
     jobType:1,
     atsCriteria:1,
+     companyName: "$recruiterInfo.companyName",
     createdAt:1,
     updatedAt:1,
     recruiter:{
