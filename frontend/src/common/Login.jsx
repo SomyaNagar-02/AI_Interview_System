@@ -27,17 +27,29 @@ const Login = () => {
     setLoading(true);
 
     try {
+      console.log("Attempting login..."); // Debug log
+      
       const response = await axios.post(
         '/api/v1/auth/login',
         formData,
-        { withCredentials: true } // Important for cookies
+        { withCredentials: true }
       );
+
+      console.log("Login Response:", response.data); // Debug log
 
       const { user, accessToken } = response.data.data;
       
+      console.log("User:", user); // Debug log
+      console.log("Token:", accessToken); // Debug log
+      
       // Store user info and token in localStorage
       localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('token', accessToken); // Changed from 'accessToken' to 'token'
+      localStorage.setItem('accessToken', accessToken); // Keep this too for backward compatibility
+      
+      console.log("Stored in localStorage:"); // Debug log
+      console.log("- token:", localStorage.getItem('token'));
+      console.log("- user:", localStorage.getItem('user'));
 
       // Redirect based on role
       if (user.role === 'recruiter') {
@@ -48,6 +60,9 @@ const Login = () => {
         setError('Invalid user role');
       }
     } catch (err) {
+      console.error("Login Error:", err); // Debug log
+      console.error("Error Response:", err.response?.data); // Debug log
+      
       setError(
         err.response?.data?.message || 
         'Login failed. Please check your credentials.'
@@ -106,5 +121,6 @@ const Login = () => {
 };
 
 export default Login;
+
 
 

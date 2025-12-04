@@ -14,6 +14,7 @@ import InterviewPage from "./Applicant/InterviewPage";
 import Profile from "./Applicant/Profile";
 
 
+
 import Results from "./Applicant/Results";
 import { DashboardLayout}  from "./Interviewer/DashboardLayout";
 import { Dashboard } from "./Interviewer/Dashboard";
@@ -84,7 +85,7 @@ function App() {
         <Route path="/JobPosting" element={<ProtectedRoute allowedRole="applicant"><JobPosting /></ProtectedRoute>} />
         <Route path="/InterviewPage" element={<ProtectedRoute allowedRole="applicant"><InterviewPage /></ProtectedRoute>} />
         <Route path="/Results" element={<ProtectedRoute allowedRole="applicant"><Results /></ProtectedRoute>} />
-
+       
         {/* ================= RECRUITER ROUTES ================= */}
         {/* We pass allowedRole="recruiter" (or "interviewer" depending on your DB) */}
         <Route
