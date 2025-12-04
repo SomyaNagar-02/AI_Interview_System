@@ -60,7 +60,7 @@ export const getApplicantProfile = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
   // 1. Get immutable Auth info (Name, Email)
-  const user = await User.findById(userId).select("name email");
+  const user = await User.findById(userId).select("name email profilePic");
 
   // 2. Get mutable Profile info
   const applicantProfile = await Applicant.findOne({ userId });
@@ -76,7 +76,7 @@ export const getApplicantProfile = asyncHandler(async (req, res) => {
     location: applicantProfile?.location || "",
     country: applicantProfile?.country || "",
     dob: applicantProfile?.dob || "",
-    
+    profilePic: user.profilePic || "",
     skills: applicantProfile?.skills || [],
     experience: applicantProfile?.experience || "",
     education: applicantProfile?.education || "",
