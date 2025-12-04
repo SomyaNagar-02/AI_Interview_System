@@ -2,8 +2,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // ... keep your existing imports ...
 import HomePage from "./common/HomePage";
+import Signup from "./common/Signup";
 import Login from "./common/Login";
 import RegisterPage from "./Interviewer/RegisterPage";
+import ApplicantRegistration from "./Applicant/ApplicantRegistration";
 import EditProfile from "./Applicant/EditProfile";
 import ApplicantDashboard from "./Applicant/ApplicantDashboard";
 import NotificationsPage from "./Applicant/NotificationsPage";
@@ -43,8 +45,10 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/signup" element={<Signup/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/applicantregister" element={<ApplicantRegistration/>}/>
 
         {/* ================= APPLICANT ROUTES ================= */}
         {/* We pass allowedRole="applicant" so recruiters can't see this */}
