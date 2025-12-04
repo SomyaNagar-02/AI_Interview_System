@@ -11,7 +11,6 @@ export const createApplicantProfile = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   
   const user = await User.findById(userId);
-  if(user.role.toLowerCase()==="recruiter")throw new ApiError(404 , "user is a recruiter")
   if (!user) throw new ApiError(404, "User not found");
 
   if(user.role.toLowerCase() === "recruiter") {
@@ -60,7 +59,7 @@ export const getApplicantProfile = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
   // 1. Get immutable Auth info (Name, Email)
-  const user = await User.findById(userId).select("name email");
+  const user = await User.findById(userId).select("name email profilePic");
 
   // 2. Get mutable Profile info
   const applicantProfile = await Applicant.findOne({ userId });
@@ -70,6 +69,9 @@ export const getApplicantProfile = asyncHandler(async (req, res) => {
     // Auth Data (Read Only)
     name: user.name,
     email: user.email,
+
+    //Added profilePic here so the frontend receives it
+    profilePic: user.profilePic || "",
 
     // Profile Data (Editable)
     // If profile exists, use it. If not, return empty strings.
