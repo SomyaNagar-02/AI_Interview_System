@@ -1,0 +1,75 @@
+/* Global Recruiter Layout */
+.recruiter-layout {
+  min-height: 100vh;
+  background: #f5f7fb; /* smooth white-gray theme */
+  font-family: "Poppins", sans-serif;
+  color: #333;
+}
+
+/* Navbar */
+.recruiter-navbar {
+  height: 70px;
+  width: 100%;
+  background: white;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo */
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #6a50ff; /* purple accent */
+}
+
+/* Right Nav Buttons */
+.nav-right a {
+  margin-left: 25px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #333;
+  transition: 0.2s ease;
+}
+
+.nav-right a:hover {
+  color: #6a50ff; /* purple hover */
+}
+
+.logout {
+  color: #ff4d4d !important;
+}
+
+/* Main Page Content */
+.recruiter-content {
+  padding: 30px 40px;
+}
+.logout {
+  margin-left: 1.5rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #fecaca;              /* light red border */
+  background: #fef2f2;                    /* very light red bg */
+  color: #b91c1c;                         /* dark red text */
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(248, 113, 113, 0.25);
+  transition: all 0.2s ease;
+}
+
+.logout:hover {
+  background: #fee2e2;                    /* slightly stronger on hover */
+  box-shadow: 0 4px 10px rgba(248, 113, 113, 0.35);
+  transform: translateY(-1px);
+}
+
+.logout:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(248, 113, 113, 0.25);
+}
+

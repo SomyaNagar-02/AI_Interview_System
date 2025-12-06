@@ -1,0 +1,125 @@
+/* FULL PAGE */
+.recruiter-dashboard-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.recruiter-dashboard-tagline {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+}
+
+/* keep existing .search-area and .search-input */
+
+
+/* SEARCH AREA */
+.search-area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 26px;
+}
+
+.search-input {
+  width: 60%;
+  max-width: 520px;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.96rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.3);
+  background: #ffffff;
+}
+
+/* JOB CARD CONTAINER */
+.job-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+  padding: 0 4px;
+}
+
+/* JOB CARD DESIGN */
+.job-card {
+  background: #ffffff;
+  padding: 1.15rem 1.2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.18);
+  transition: 0.25s ease;
+  border-left: 4px solid #8b5cf6;
+}
+
+.job-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.26);
+}
+
+/* TITLE + COMPANY */
+.job-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.company {
+  font-size: 0.9rem;
+  color: #6366f1;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* JOB INFO */
+.job-info {
+  font-size: 0.88rem;
+  color: #4b5563;
+  margin-bottom: 4px;
+}
+
+/* VIEW BUTTON */
+.view-btn {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition: 0.2s ease;
+  border: none;
+}
+
+.view-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(129, 140, 248, 0.4);
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .recruiter-dashboard {
+    padding: 20px 16px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+}

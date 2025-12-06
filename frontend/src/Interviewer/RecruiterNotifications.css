@@ -1,0 +1,117 @@
+.recruiter-notifications-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+    "Roboto", sans-serif;
+}
+
+.notifications-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem 2.25rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.notifications-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899, #8b5cf6);
+  background-size: 200% 100%;
+  animation: notif-gradient 3s ease infinite;
+}
+
+@keyframes notif-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.notifications-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.35rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.notifications-subtitle {
+  margin: 0 0 1.75rem 0;
+  font-size: 0.96rem;
+  color: #6b7280;
+}
+
+/* Notification card */
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  margin-bottom: 0.9rem;
+  font-size: 0.95rem;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s;
+}
+
+.notification-item:hover {
+  background: #ffffff;
+  border-color: #8b5cf6;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+}
+
+.notification-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #10b981; /* green for new */
+  margin-top: 6px;
+}
+
+.notification-dot.read {
+  background: #d1d5db; /* gray for read */
+}
+
+.notification-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: #1f2933;
+}
+
+.notification-meta {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .notifications-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .notifications-title {
+    font-size: 1.7rem;
+  }
+}

@@ -1,0 +1,122 @@
+/* -----------------------------
+   GLOBAL THEME VARIABLES
+   ----------------------------- */
+:root {
+  /* Brand Colors */
+  --primary-color: #6366f1;
+  --secondary-color: #a855f7;
+  --gradient-bg: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+
+  /* Text Colors */
+  --text-main: #1a1a1a;
+  --text-body: #64748b;
+  --text-link: #4a5568;
+  --text-white: #ffffff;
+
+  /* Backgrounds */
+  --bg-white: #ffffff;
+
+  /* Inputs */
+  --input-bg: #ffffff;
+  --input-text: #111111;
+
+  /* Borders */
+  --border-color: #111111;
+}
+
+/* -----------------------------
+   PAGE BACKGROUND 
+   ----------------------------- */
+.signup-container {
+  min-height: 100vh;
+  background: var(--gradient-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* -----------------------------
+   SIGNUP CARD
+   ----------------------------- */
+.signup-card {
+  background: var(--bg-white);
+  width: 420px;
+  padding: 40px 45px;
+  border-radius: 12px;
+
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading */
+.signup-card h2 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+/* Subtext */
+.signup-card p {
+  text-align: center;
+  color: var(--text-body);
+  margin-bottom: 28px;
+  font-size: 15px;
+}
+
+/* Labels */
+.signup-card label {
+  font-size: 14px;
+  color: var(--text-body);
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Inputs */
+.signup-card input,
+.signup-card select {
+  width: 100%;
+  padding: 12px;
+  background: var(--input-bg);
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  color: var(--input-text);
+}
+
+/* Placeholder text color */
+.signup-card input::placeholder {
+  color: #999;
+}
+
+/* Button */
+.signup-card button {
+  width: 100%;
+  padding: 12px;
+  background: #7f8cff; /* SAME button as your Login page */
+  color: var(--text-white);
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: 0.2s ease-in-out;
+}
+
+.signup-card button:hover {
+  opacity: 0.95;
+}
+
+/* Bottom Text */
+.signup-card .bottom-text {
+  text-align: center;
+  margin-top: 18px;
+}
+
+.signup-card .bottom-text a {
+  color: var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+}

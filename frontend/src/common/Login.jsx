@@ -53,7 +53,7 @@ const Login = () => {
 
       // Redirect based on role
       if (user.role === 'recruiter') {
-        navigate('/InterviewerDashboard');
+        navigate('/recruiter');
       } else if (user.role === 'applicant') {
         navigate('/ApplicantDashboard');
       } else {
@@ -113,7 +113,7 @@ const Login = () => {
         </form>
 
         <div className="register-link">
-          Don't have an account? <a href="/register">Register here</a>
+          Don't have an account? <a href="/signup">Sign Up</a>
         </div>
       </div>
     </div>

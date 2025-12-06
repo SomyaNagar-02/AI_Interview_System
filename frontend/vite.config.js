@@ -9,7 +9,7 @@ export default defineConfig({
     proxy: {
       // String to look for
       '/api': {
-        target: 'http://localhost:5000', // Your Backend URL
+        target: 'http://localhost:8000', // Your Backend URL
         changeOrigin: true,
         secure: false,
       },
