@@ -53,7 +53,7 @@ const Login = () => {
 
       // Redirect based on role
       if (user.role === 'recruiter') {
-        navigate('/InterviewerDashboard');
+        navigate('/recruiter');
       } else if (user.role === 'applicant') {
         navigate('/ApplicantDashboard');
       } else {

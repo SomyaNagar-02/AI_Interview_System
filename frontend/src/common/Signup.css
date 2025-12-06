@@ -17,11 +17,11 @@
   --bg-white: #ffffff;
 
   /* Inputs */
-  --input-bg: #1e1e2d;
-  --input-text: #ffffff;
+  --input-bg: #ffffff;
+  --input-text: #111111;
 
   /* Borders */
-  --border-color: #e2e8f0;
+  --border-color: #111111;
 }
 
 /* -----------------------------
