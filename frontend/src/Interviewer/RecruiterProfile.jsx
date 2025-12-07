@@ -15,7 +15,7 @@ export default function RecruiterProfile() {
     const loadProfile = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/recruiter/getRecruiterDetails",
+          "/api/v1/recruiter/getRecruiterDetails",
           { withCredentials: true }
         );
 

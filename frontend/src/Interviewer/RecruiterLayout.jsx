@@ -7,7 +7,7 @@ export default function RecruiterLayout() {
     const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:8000/api/v1/auth/logout",
+        "/api/v1/auth/logout",
         {},
         { withCredentials: true }   
       );
