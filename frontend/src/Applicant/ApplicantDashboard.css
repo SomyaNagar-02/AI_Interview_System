@@ -1,13 +1,13 @@
 .dashboard-wrapper {
   min-height: 100vh;
   background: #f8f9fa;
-  padding-bottom: 3rem;
+  padding-top: 80px;
 }
 
 /* Header */
 .dashboard-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 3.0rem 1rem;
+  padding: 4rem 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-top: 0;
 }
@@ -29,7 +29,7 @@
 /* Search and Filters */
 .search-filter-section {
   max-width: 1400px;
-  margin: -2rem auto 2.5rem; /* Added more bottom margin */
+  margin: 2.5rem auto 2.5rem;
   padding: 0 1rem;
   position: relative;
   z-index: 10;
@@ -37,7 +37,7 @@
 
 .search-container {
   position: relative;
-  margin-bottom: 1.25rem; /* Increased space */
+  margin-bottom: 1.25rem;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -128,7 +128,7 @@
 /* Results Info */
 .results-info {
   max-width: 1400px;
-  margin: 0 auto 1.75rem; /* Increased space */
+  margin: 0 auto 1.75rem;
   padding: 0 1rem;
 }
 
@@ -143,7 +143,7 @@
 .jobs-grid {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1rem 3rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 1.75rem;
@@ -342,7 +342,7 @@
 .pagination {
   max-width: 1400px;
   margin: 3rem auto 0;
-  padding: 0 1rem;
+  padding: 0 1rem 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -417,6 +417,7 @@
     font-size: 1.2rem;
   }
 }
+
 
 
 
