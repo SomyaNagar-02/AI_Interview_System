@@ -1,16 +1,15 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
 
 const InterviewerRegistration = () => {
+  const navigation=useNavigate();
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    location: "",
-    organization: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-  });
+  companyName: "",
+  description: "",
+  website: "",
+});
 
   const [errors, setErrors] = useState({});
 
@@ -22,123 +21,74 @@ const InterviewerRegistration = () => {
   };
 
   const validate = () => {
-    const newErrors = {};
-    if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
-    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email))
-      newErrors.email = "Invalid email address";
+  const newErrors = {};
 
-    if (!formData.location.trim()) newErrors.location = "Location is required";
-    if (!formData.organization.trim())
-      newErrors.organization = "Organization is required";
+  if (!formData.companyName.trim())
+    newErrors.companyName = "Company name is required";
 
-    if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
-    else if (!/^\+?[0-9\s-]{7,15}$/.test(formData.phone))
-      newErrors.phone = "Invalid phone number";
+  if (!formData.description.trim())
+    newErrors.description = "Description is required";
 
-    if (!formData.password) newErrors.password = "Password is required";
-    else if (formData.password.length < 6)
-      newErrors.password = "Password should be at least 6 characters";
+  if (!formData.website.trim())
+    newErrors.website = "Website is required";
 
-    if (formData.password !== formData.confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate()) {
-      alert("Registration successful!");
-      // Submit to backend here
-    }
-  };
+  try {
+    const res = await axios.post(
+      "http://localhost:8000/api/v1/recruiter/setRecruiterDetails",
+      {
+        companyName: formData.companyName,
+        description: formData.description,
+        website: formData.website,
+      },
+      { withCredentials: true }
+    );
+
+    alert("Recruiter profile created!");
+    navigation("/login");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to save recruiter details");
+  }
+};
 
   return (
-    <div class="Registerpage-bg">
+    <div className="Registerpage-bg">
     <div className="registration-root">
       <form className="registration-form" onSubmit={handleSubmit} noValidate>
         <h2>Register Here</h2>
 
-        <label htmlFor="fullName">Full Name</label>
+        <label>Company Name</label>
         <input
-          id="fullName"
-          name="fullName"
+          name="companyName"
           type="text"
-          placeholder="John Doe"
-          value={formData.fullName}
+          placeholder="SelectX Labs"
+          value={formData.companyName}
           onChange={handleChange}
         />
-        {errors.fullName && <p className="error">{errors.fullName}</p>}
 
-        <label htmlFor="email">Email Address</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="email@example.com"
-          value={formData.email}
+        <label>Description</label>
+        <textarea
+          name="description"
+          placeholder="About your company…"
+          value={formData.description}
           onChange={handleChange}
         />
-        {errors.email && <p className="error">{errors.email}</p>}
 
-        <label htmlFor="location">Location</label>
+        <label>Website</label>
         <input
-          id="location"
-          name="location"
+          name="website"
           type="text"
-          placeholder="City, State or Country"
-          value={formData.location}
+          placeholder="https://example.com"
+          value={formData.website}
           onChange={handleChange}
         />
-        {errors.location && <p className="error">{errors.location}</p>}
-
-        <label htmlFor="organization">Organization</label>
-        <input
-          id="organization"
-          name="organization"
-          type="text"
-          placeholder="Your company or institution"
-          value={formData.organization}
-          onChange={handleChange}
-        />
-        {errors.organization && <p className="error">{errors.organization}</p>}
-
-        <label htmlFor="phone">Phone Number</label>
-        <input
-          id="phone"
-          name="phone"
-          type="text"
-          placeholder="+1 234 567 8901"
-          value={formData.phone}
-          onChange={handleChange}
-        />
-        {errors.phone && <p className="error">{errors.phone}</p>}
-
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Enter password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        {errors.password && <p className="error">{errors.password}</p>}
-
-        <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          id="confirmPassword"
-          name="confirmPassword"
-          type="password"
-          placeholder="Re-enter password"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-        />
-        {errors.confirmPassword && (
-          <p className="error">{errors.confirmPassword}</p>
-        )}
 
         <button type="submit" className="register-btn">Register</button>
       </form>

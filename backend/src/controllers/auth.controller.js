@@ -60,15 +60,19 @@ export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("-refreshToken");
+  
   if (!user) throw new ApiError(404, "User not found");
+
 
   const isMatch = await user.matchPassword(password);
   if (!isMatch) throw new ApiError(401, "Invalid credentials");
 user.password = undefined;
 
+
   const { accessToken, refreshToken } = await assignTokens(user._id);
 
   user.password = undefined; // Remove password from response
+
 
   return res
     .status(200)
