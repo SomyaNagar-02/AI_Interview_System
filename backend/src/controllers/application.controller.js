@@ -16,7 +16,7 @@ import { inngest } from "../inngest/client.js";
 export const applyJob = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   const { jobId } = req.params;
-
+console.log(jobId)
   // 1. Check if file exists in memory
   if (!req.file) {
     throw new ApiError(400, "Resume upload required to apply");
@@ -28,7 +28,7 @@ export const applyJob = asyncHandler(async (req, res) => {
   // 2. Manually upload to GridFS and get the ID
   // Note: We await this because it's a database operation now
   const resumeId = await uploadToGridFS(req.file, userId);
-
+console.log(resumeId);
   // 3. Create Application
   const application = await Application.create({
     jobId,

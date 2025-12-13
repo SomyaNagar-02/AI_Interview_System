@@ -24,6 +24,9 @@ export const validateInterviewToken = asyncHandler(async (req, res) => {
 
   // Fetch Job Details to give context to the AI
   const job = await Job.findById(interview.jobId).select("title description skillsRequired");
+await Interview.findByIdAndUpdate(interview._id, {
+  status: "in_progress"
+});
 
   return res.status(200).json(
     new ApiResponse(200, { 

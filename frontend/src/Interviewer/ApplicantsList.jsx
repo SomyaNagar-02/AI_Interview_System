@@ -1,24 +1,39 @@
 import "./ApplicantsList.css";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios"; 
-
+import axios from "axios";
 
 export default function ApplicantsList() {
   const { jobId } = useParams();
   const [applicants, setApplicants] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // replace this block with real API call when backend is ready
-    
+    const fetchApplicants = async () => {
+      try {
+        const res = await axios.get(
+          `/api/v1/recruiter/getAppliedCand`,  
+          { params: { jobId } }               // backend expects jobId in query
+        );
+        const jobs = res.data.data || [];
+console.log(jobs)
+        // Backend returns array of jobs, each with applicants list
+        if (jobs.length > 0) {
+          setApplicants(jobs[0].applicants || []);
+        } else {
+          setApplicants([]);
+        }
+      } catch (err) {
+        console.error("Fetch applicants error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    
-    axios
-      .get(`/api/v1/application/job/${jobId}`)
-      .then((res) => setApplicants(res.data.data || []))
-      .catch((err) => console.error("Fetch applicants error:", err));
-    
+    fetchApplicants();
   }, [jobId]);
+
+  if (loading) return <p>Loading applicants...</p>;
 
   return (
     <div className="applicant-list-container">
@@ -26,11 +41,26 @@ export default function ApplicantsList() {
 
       {applicants.length === 0 && <p>No applicants have applied yet.</p>}
 
-      {applicants.map((applicant) => (
-        <div key={applicant.id} className="applicant-card">
-          <h3>{applicant.name}</h3>
-          <p>Experience: {applicant.experience}</p>
-          <Link to={`/recruiter/applicant/view/${applicant.id}`}>
+      {applicants.map((item) => (
+        <div key={item.applicationId} className="applicant-card">
+          
+          {/* USER BASIC INFO */}
+          <h3>{item.user?.name || "No Name"}</h3>
+          <p>Email: {item.user?.email}</p>
+
+          {/* PROFILE INFO */}
+          <p>Experience: {item.profile?.experience || "N/A"}</p>
+          <p>Skills: {item.profile?.skills || "N/A"}</p>
+
+          {/* ATS INFO */}
+          <p>ATS Score: {item.atsScore}</p>
+          <p>ATS Result: {item.atsResult}</p>
+
+          {/* Resume Link */}
+          <Link 
+            to={`/api/applicant/resume/${item.resumeUrl}`} 
+            className="resume-link"
+          >
             View Resume
           </Link>
         </div>

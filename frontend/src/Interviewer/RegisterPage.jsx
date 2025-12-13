@@ -41,7 +41,7 @@ const InterviewerRegistration = () => {
 
   try {
     const res = await axios.post(
-      "http://localhost:8000/api/v1/recruiter/setRecruiterDetails",
+      "/api/v1/recruiter/setRecruiterDetails",
       {
         companyName: formData.companyName,
         description: formData.description,

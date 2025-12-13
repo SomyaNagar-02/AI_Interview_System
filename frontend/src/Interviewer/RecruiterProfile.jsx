@@ -32,7 +32,7 @@ export default function RecruiterProfile() {
   const handleSave = async () => {
     try {
       await axios.put(
-        "http://localhost:8000/api/v1/recruiter/editRecruiter",
+        "/api/v1/recruiter/editRecruiter",
         { description: aboutText },
         { withCredentials: true }
       );
@@ -42,7 +42,7 @@ export default function RecruiterProfile() {
         formData.append("image", imageFile);
 
         await axios.post(
-          "http://localhost:8000/api/v1/applicant/upload-profile-pic",
+          "/api/v1/applicant/upload-profile-pic",
           formData,
           {
             withCredentials: true,
@@ -65,7 +65,7 @@ export default function RecruiterProfile() {
 
   try {
     await axios.delete(
-      "http://localhost:8000/api/v1/recruiter/deleteProfile",
+      "/api/v1/recruiter/deleteProfile",
       { withCredentials: true }
     );
     localStorage.removeItem("accessToken");

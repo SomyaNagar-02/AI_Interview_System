@@ -20,7 +20,7 @@ const handlesubmit = async (e) => {
 
   try {
     const res = await axios.post(
-      "http://localhost:8000/api/v1/auth/register",
+      "/api/v1/auth/register",
       {
         name: form.name,
         email: form.email,
@@ -34,7 +34,7 @@ const handlesubmit = async (e) => {
 
     
     localStorage.setItem("user", JSON.stringify(res.data.data.user));
-    localStorage.setItem("accessToken", res.data.data.accessToken);
+    localStorage.setItem("token", res.data.data.accessToken);
   
 
     // redirect based on role
