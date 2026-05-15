@@ -5,7 +5,8 @@ import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const API_BASE_URL = "http://localhost:5000/api/v1";
+  const API_BASE_URL = "/api/v1";
+
 
   const handleLogout = async () => {
     try {

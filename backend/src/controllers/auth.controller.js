@@ -10,49 +10,46 @@ import {
 
 //====================== REGISTER ======================
 export const registerUser = asyncHandler(async (req, res) => {
-  try {
-    const { name, email, password, role } = req.body; 
+  const { name, email, password, role } = req.body; 
 
-    //Validate required fields
-    if([name, email, password, role].some((field) => field?.trim() === "")){ 
-        throw new ApiError(400, "All fields are required")
-    }
-
-    //Check for existing user 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      throw new ApiError(409, "User already exists")
-    }
-
-    //Create new user
-    const newUser = await User.create({ 
-        name, 
-        email, 
-        password,
-        role
-    });
-    
-    // Prepare safe response (excluding password and refresh token)
-    const createdUser = await User.findById(newUser._id).select(
-        "-password -refreshToken"
-    )
-
-    if(!createdUser){
-        throw new ApiError(500, "Something went wrong while registering the user.")
-    }
-
-    const { accessToken, refreshToken } = await assignTokens(newUser._id);
-
-    return res
-    .status(201)
-    .cookie("accessToken", accessToken, { httpOnly: true })
-    .cookie("refreshToken", refreshToken, { httpOnly: true })
-    .json(new ApiResponse(201, { user: createdUser, accessToken, refreshToken}, "User registered successfully"))
-
+  //Validate required fields
+  if (!name || !email || !password || !role) {
+    throw new ApiError(400, "All fields are required");
   }
-  catch (error) {
-    res.status(error.status || 500).json({ message: error.message || "Server Error" });
-}
+  if ([name, email, password, role].some((field) => field.trim() === "")) { 
+      throw new ApiError(400, "All fields are required")
+  }
+
+  //Check for existing user 
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    throw new ApiError(409, "User already exists")
+  }
+
+  //Create new user
+  const newUser = await User.create({ 
+      name, 
+      email, 
+      password,
+      role
+  });
+  
+  // Prepare safe response (excluding password and refresh token)
+  const createdUser = await User.findById(newUser._id).select(
+      "-password -refreshToken"
+  )
+
+  if(!createdUser){
+      throw new ApiError(500, "Something went wrong while registering the user.")
+  }
+
+  const { accessToken, refreshToken } = await assignTokens(newUser._id);
+
+  return res
+  .status(201)
+  .cookie("accessToken", accessToken, { httpOnly: true })
+  .cookie("refreshToken", refreshToken, { httpOnly: true })
+  .json(new ApiResponse(201, { user: createdUser, accessToken, refreshToken}, "User registered successfully"))
 });
 
 // ====================== LOGIN ======================

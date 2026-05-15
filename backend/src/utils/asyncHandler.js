@@ -2,11 +2,13 @@ const asyncHandler = (fn) => async (req, res, next) => {
   try {
     await fn(req, res, next);
   } catch (error) {
-    // Validate the status code
+    // ApiError uses statusCode; plain errors may use status — check both
     const statusCode =
-      typeof error.status === "number" && error.status >= 100 && error.status < 600
-        ? error.status
-        : 500;
+      (typeof error.statusCode === "number" && error.statusCode >= 100 && error.statusCode < 600)
+        ? error.statusCode
+        : (typeof error.status === "number" && error.status >= 100 && error.status < 600)
+          ? error.status
+          : 500;
 
     res.status(statusCode).json({
       success: false,

@@ -154,6 +154,7 @@ ${companyName}`;
           expiresAt: expiryDate,
           status: "pending",
           atsScore: atsResult.score,
+          resumeText:resumeText,
           // 'sections' will be empty initially, filled during the interview
         });
 

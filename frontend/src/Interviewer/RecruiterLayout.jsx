@@ -29,6 +29,7 @@ export default function RecruiterLayout() {
         <div className="nav-right">
           <Link to="/recruiter/post-job">+ Post New Job</Link>
           <Link to="/recruiter/notifications">Notifications</Link>
+          <Link to="/recruiter/results">📊 Results</Link>
           <Link to="/recruiter/profile">Profile</Link>
           <button onClick={handleLogout} className="logout">
   Logout

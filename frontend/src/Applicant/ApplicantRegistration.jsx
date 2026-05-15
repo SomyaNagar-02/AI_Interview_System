@@ -19,7 +19,8 @@ function ApplicantRegistration() {
     linkedin: ""
   });
 
-  const API_BASE_URL = "http://localhost:5000/api/v1";
+  const API_BASE_URL = "/api/v1";
+
 
   useEffect(() => {
     // Get user data from localStorage

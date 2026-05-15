@@ -1,28 +1,245 @@
-.applicant-list-container {
-  max-width: 900px;
-  margin: auto;
+.applicant-list-wrapper {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.applicant-list-container h2 {
-  font-weight: 700;
-  margin-bottom: 25px;
+.applicant-list-header {
+  margin-bottom: 2rem;
 }
 
+.applicant-list-header h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+}
+
+.applicant-list-header .highlight {
+  color: #8b5cf6;
+}
+
+.applicant-list-header .subtitle {
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+/* Grid Layout */
+.applicant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Card Design */
 .applicant-card {
-  background: white;
-  padding: 22px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  margin-bottom: 18px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.applicant-card h3 {
-  margin: 0 0 8px;
+.applicant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
-.applicant-card a {
+/* Card Header */
+.card-header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #f9fafb;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.user-main h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.user-email {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* ATS Badge */
+.ats-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 10px;
+  min-width: 60px;
+}
+
+.ats-badge.shortlisted, .ats-badge.selected {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.ats-badge.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.ats-badge.pending {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.ats-badge .score {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.ats-badge .result {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Card Body */
+.card-body {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.info-section {
+  margin-bottom: 1rem;
+}
+
+.info-section label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.05em;
+}
+
+.info-section p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+/* Skills Tags */
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skill-tag {
+  background: #f3f4f6;
+  color: #4b5563;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Status Tag */
+.status-tag {
   display: inline-block;
-  margin-top: 10px;
-  color: #7f57ff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
   font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-tag.pending { background: #fef9c3; color: #854d0e; }
+.status-tag.shortlisted { background: #dcfce7; color: #166534; }
+
+/* Actions */
+.card-actions {
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  gap: 0.8rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.resume-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.resume-btn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.shortlist-btn {
+  flex: 1;
+  padding: 0.6rem;
+  background: #8b5cf6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.shortlist-btn:hover {
+  background: #7c3aed;
+}
+
+/* Loading State */
+.applicant-list-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #6b7280;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f4f6;
+  border-top: 3px solid #8b5cf6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* No Applicants */
+.no-applicants {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #f9fafb;
+  border-radius: 16px;
+  border: 2px dashed #e5e7eb;
+  color: #6b7280;
 }

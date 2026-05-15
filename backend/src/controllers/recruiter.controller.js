@@ -9,7 +9,7 @@ import Job from "../models/job.models.js"
 import mongoose from "mongoose";
 //================setting up recruiter details =============
 export const setRecruiterDetails = asyncHandler(async (req, res) => {
-  const {  companyName, description, website } = req.body;
+  const { companyName, description, website, location, industry, companySize, foundedDate, logo, linkedin, twitter } = req.body;
   const userId =  req.user._id;
   if (!userId || !companyName) {
     throw new ApiError(404, "user id or companyname not found ");
@@ -29,6 +29,13 @@ export const setRecruiterDetails = asyncHandler(async (req, res) => {
     companyName,
     description,
     website,
+    location,
+    industry,
+    companySize,
+    foundedDate,
+    logo,
+    linkedin,
+    twitter,
   });
 
   if (!newRecruiter) {
@@ -83,7 +90,7 @@ export const deleteProfile = asyncHandler(async (req, res) => {
 });
 //==============Edit Profile function===================
 export const editProfile = asyncHandler(async (req, res) => {
-  const { companyName, description, website } = req.body;
+  const { companyName, description, website, location, industry, companySize, foundedDate, logo, linkedin, twitter } = req.body;
 const userId=req.user._id;
   const recruiter = await Recruiter.findOne({ userId });
   if (!recruiter) {
@@ -93,6 +100,13 @@ const userId=req.user._id;
   if (companyName) updateData.companyName = companyName;
   if (description) updateData.description = description;
   if (website) updateData.website = website;
+  if (location) updateData.location = location;
+  if (industry) updateData.industry = industry;
+  if (companySize) updateData.companySize = companySize;
+  if (foundedDate) updateData.foundedDate = foundedDate;
+  if (logo) updateData.logo = logo;
+  if (linkedin) updateData.linkedin = linkedin;
+  if (twitter) updateData.twitter = twitter;
   if (Object.keys(updateData).length === 0) {
     throw new ApiError(400, "No feilds Provided to update");
   }

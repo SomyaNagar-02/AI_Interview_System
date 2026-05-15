@@ -15,8 +15,8 @@ import JobPosting from "./Applicant/JobPosting";
 import InterviewPage from "./Applicant/InterviewPage";
 import Profile from "./Applicant/Profile";
 import Results from "./Applicant/Results";
-
-// Recruiter
+import InterviewStart from "./Interviewer/InterviewStart";
+import InterviewCompleted from "./Interviewer/InterviewCompleted";
 // Recruiter (Interviewer Folder)
 import RecruiterLayout from "./Interviewer/RecruiterLayout";
 import RecruiterDashboard from "./Interviewer/RecruiterDashboard";
@@ -25,6 +25,8 @@ import RecruiterNotifications from "./Interviewer/RecruiterNotifications";
 import RecruiterProfile from "./Interviewer/RecruiterProfile";
 import ApplicantsList from "./Interviewer/ApplicantsList";
 import ViewApplicant from "./Interviewer/ViewApplicant";
+import RecruiterResults from "./Interviewer/RecruiterResults";
+import JobInterviewResults from "./Interviewer/JobInterviewResults";
 
 
 // =============== PROTECTED ROUTE ====================
@@ -81,6 +83,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/interview/start/:token" element={<InterviewStart />} />
+        <Route path="/interview-completed" element={<InterviewCompleted />} />
 
         <Route
           path="/notifications"
@@ -146,6 +150,12 @@ function App() {
 
           {/* Single Applicant */}
           <Route path="applicant/:id" element={<ViewApplicant />} />
+
+          {/* Results hub — all jobs with completed interviews */}
+          <Route path="results" element={<RecruiterResults />} />
+
+          {/* Per-job interview results */}
+          <Route path="results/:jobId" element={<JobInterviewResults />} />
 
         </Route>
 

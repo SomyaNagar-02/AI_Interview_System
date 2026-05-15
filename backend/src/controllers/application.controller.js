@@ -16,7 +16,12 @@ import { inngest } from "../inngest/client.js";
 export const applyJob = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   const { jobId } = req.params;
-console.log(jobId)
+
+  console.log("=== APPLY JOB ===");
+  console.log("userId:", userId);
+  console.log("jobId:", jobId);
+  console.log("file present:", !!req.file);
+
   // 1. Check if file exists in memory
   if (!req.file) {
     throw new ApiError(400, "Resume upload required to apply");
@@ -24,35 +29,42 @@ console.log(jobId)
 
   const job = await Job.findById(jobId);
   if (!job) throw new ApiError(404, "Job not found");
+  console.log("Job found:", job.title);
 
   // 2. Manually upload to GridFS and get the ID
-  // Note: We await this because it's a database operation now
   const resumeId = await uploadToGridFS(req.file, userId);
-console.log(resumeId);
+  console.log("Resume uploaded, ID:", resumeId);
+
   // 3. Create Application
   const application = await Application.create({
     jobId,
     applicantId: userId,
-    resumeUrl: resumeId, // Store the ID we just got
+    resumeUrl: resumeId,
   });
+  console.log("Application created:", application._id);
 
   // 4. Link Application to Applicant Profile
   const applicant = await Applicant.findOneAndUpdate(
     { userId },
     { $push: { appliedJobs: application._id } }
   );
+  console.log("Applicant profile updated:", !!applicant);
 
-  // 5. TRIGGER INNGEST (Fire and Forget)
-  // This starts the background email & AI process
-  await inngest.send({
-    name: "application/submitted",
-    data: {
-      userId: userId,
-      jobId: jobId,
-      jobTitle: job.title,
-      resumeId: resumeId
-    },
-  });
+  // 5. TRIGGER INNGEST — fire and forget (don't let this crash the response)
+  try {
+    await inngest.send({
+      name: "application/submitted",
+      data: {
+        userId: userId,
+        jobId: jobId,
+        jobTitle: job.title,
+        resumeId: resumeId
+      },
+    });
+    console.log("Inngest event sent");
+  } catch (inngestError) {
+    console.warn("Inngest event failed (non-fatal):", inngestError.message);
+  }
 
   return res
     .status(201)

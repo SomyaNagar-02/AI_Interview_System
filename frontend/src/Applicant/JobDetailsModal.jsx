@@ -8,8 +8,6 @@ function JobDetailsModal({ job, onClose }) {
   const [coverLetter, setCoverLetter] = useState("");
   const [applying, setApplying] = useState(false);
 
-  const API_BASE_URL = "http://localhost:5000/api/v1";
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -43,23 +41,30 @@ function JobDetailsModal({ job, onClose }) {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.post(`${API_BASE_URL}/application/${job._id}/apply`, formData, {
+      console.log("Submitting application for job:", job._id);
+      console.log("Token present:", !!token);
+
+      await axios.post(`/api/v1/application/${job._id}/apply`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data"
-        }
+        },
+        withCredentials: true
       });
 
       alert("Application submitted!");
       setShowApplyModal(false);
       onClose();
     } catch (err) {
-      console.error("Application error:", err);
+      console.error("Application error status:", err.response?.status);
+      console.error("Application error data:", err.response?.data);
+      console.error("Application error:", err.message);
       alert(err.response?.data?.message || "Application failed");
     } finally {
       setApplying(false);
     }
   };
+
 
   return (
     <div className="job-modal-overlay" onClick={onClose}>
