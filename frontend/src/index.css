@@ -1,21 +1,400 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
+/* ── Global Light / Dark CSS Variable System ── */
 :root {
-  --bg-dark: #1a1a2e;
-  --bg-medium: #16213e;
-  --primary-accent: #0f3460;
-  --text-primary: #e0e0e0;
-  --text-secondary: #a0a0a0;
-  --accent-blue: #3498db;
-  --status-yellow: #f1c40f;
-  --status-green: #2ecc71;
-  --status-red: #e74c3c;
-  --status-blue: #5dade2;
+  /* Common Accent & Status Colors */
+  --color-primary: #6a50ff;
+  --color-primary-hover: #573be5;
+  --color-success: #10b981;
+  --color-success-bg: #d1fae5;
+  --color-success-bg-dark: #064e3b;
+  --color-danger: #ef4444;
+  --color-danger-bg: #fee2e2;
+  --color-danger-bg-dark: #7f1d1d;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fef3c7;
+  
+  /* Light Theme Values (Default) */
+  --bg-primary: #f5f7fb;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f9fafb;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --border-color: #e5e7eb;
+  --navbar-bg: #ffffff;
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* Dark Theme Overrides */
+[data-theme='dark'],
+.dark-theme {
+  --bg-primary: #121212;       /* sleek pure dark black */
+  --bg-secondary: #1e1e1e;     /* premium card dark grey */
+  --bg-tertiary: #2a2a2a;      /* hover/highlight dark grey */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #888888;
+  --border-color: #2c2c2c;     /* premium dark border */
+  --navbar-bg: #1e1e1e;
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 14px 30px rgba(0, 0, 0, 0.6);
 }
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #ffffff;
+  padding: 0;
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
+/* Custom selection styling */
+::selection {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+/* ── 1. Consolidated Dark Backgrounds (var(--bg-primary)) ── */
+[data-theme='dark'] .dashboard-wrapper,
+[data-theme='dark'] .applicant-list-wrapper,
+[data-theme='dark'] .registration-page,
+[data-theme='dark'] .edit-profile-wrapper,
+[data-theme='dark'] .notifications-page,
+[data-theme='dark'] .profile-page-wrapper,
+[data-theme='dark'] .result-root,
+[data-theme='dark'] .ehome-root {
+  background: var(--bg-primary) !important;
+}
+
+/* ── 2. Consolidated Card & Panel Surfaces (var(--bg-secondary)) ── */
+[data-theme='dark'] .company-quick-card,
+[data-theme='dark'] .setup-profile-card,
+[data-theme='dark'] .search-filters-card,
+[data-theme='dark'] .recruiter-analytic-card,
+[data-theme='dark'] .recruiter-job-card,
+[data-theme='dark'] .rresult-card,
+[data-theme='dark'] .applicant-card,
+[data-theme='dark'] .jir-card,
+[data-theme='dark'] .jir-details-card,
+[data-theme='dark'] .post-job-container,
+[data-theme='dark'] .notifications-container,
+[data-theme='dark'] .notification-item,
+[data-theme='dark'] .recruiter-navbar,
+[data-theme='dark'] .recruiter-layout,
+[data-theme='dark'] .profile-header,
+[data-theme='dark'] .profile-section,
+[data-theme='dark'] .logo-container,
+[data-theme='dark'] .danger-btn,
+[data-theme='dark'] .back-btn,
+[data-theme='dark'] .registration-root,
+[data-theme='dark'] .view-applicant-container,
+[data-theme='dark'] .jir-summary-block,
+[data-theme='dark'] .stat-card,
+[data-theme='dark'] .no-notifications,
+[data-theme='dark'] .recruiter-profile-wrapper,
+[data-theme='dark'] .jir-chat-bubble.recruiter,
+[data-theme='dark'] .search-container,
+[data-theme='dark'] .search-input,
+[data-theme='dark'] .filter-select,
+[data-theme='dark'] .job-card,
+[data-theme='dark'] .no-jobs,
+[data-theme='dark'] .job-modal,
+[data-theme='dark'] .apply-modal,
+[data-theme='dark'] .btn-cancel,
+[data-theme='dark'] .login-box,
+[data-theme='dark'] .signup-card,
+[data-theme='dark'] .ehome-header,
+[data-theme='dark'] .feature-card,
+[data-theme='dark'] .howworks-section,
+[data-theme='dark'] .registration-box,
+[data-theme='dark'] .skip-btn,
+[data-theme='dark'] .edit-profile-card,
+[data-theme='dark'] .notif-card,
+[data-theme='dark'] .profile-content-card,
+[data-theme='dark'] .profile-modal-content,
+[data-theme='dark'] .error-container,
+[data-theme='dark'] .result-card,
+[data-theme='dark'] .modern-job-card,
+[data-theme='dark'] .jir-info-block,
+[data-theme='dark'] .card-header {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* ── 3. Consolidated Inner Blocks & Input Fields (var(--bg-tertiary)) ── */
+[data-theme='dark'] input,
+[data-theme='dark'] select,
+[data-theme='dark'] textarea,
+[data-theme='dark'] .sidebar-search-input,
+[data-theme='dark'] .rresults-search,
+[data-theme='dark'] .company-tagline,
+[data-theme='dark'] .company-logo-badge,
+[data-theme='dark'] .tag,
+[data-theme='dark'] .modern-job-type,
+[data-theme='dark'] .jir-toggle,
+[data-theme='dark'] .rresult-badge,
+[data-theme='dark'] .skill-tag,
+[data-theme='dark'] .job-details,
+[data-theme='dark'] .pagination-btn,
+[data-theme='dark'] .modal-info-grid,
+[data-theme='dark'] .modal-skill,
+[data-theme='dark'] .feature-icon,
+[data-theme='dark'] .howworks-card,
+[data-theme='dark'] .reg-header,
+[data-theme='dark'] .disabled-input,
+[data-theme='dark'] .cancel-btn,
+[data-theme='dark'] .profile-info-box,
+[data-theme='dark'] .profile-skill-tag,
+[data-theme='dark'] .score-value {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ── 4. Consolidated High-Contrast Text Rules (var(--text-primary)) ── */
+[data-theme='dark'] h1,
+[data-theme='dark'] h2,
+[data-theme='dark'] h3,
+[data-theme='dark'] h4,
+[data-theme='dark'] h5,
+[data-theme='dark'] h6,
+[data-theme='dark'] label,
+[data-theme='dark'] .jir-job-title,
+[data-theme='dark'] .jir-section-title,
+[data-theme='dark'] .rresult-job-title,
+[data-theme='dark'] .user-main h3,
+[data-theme='dark'] .modern-job-title,
+[data-theme='dark'] .modern-company-name,
+[data-theme='dark'] .modern-job-specs,
+[data-theme='dark'] .info-section p,
+[data-theme='dark'] .page-info,
+[data-theme='dark'] .results-info p,
+[data-theme='dark'] .modal-header-content h2,
+[data-theme='dark'] .modal-section h3,
+[data-theme='dark'] .apply-modal-header h3,
+[data-theme='dark'] .modal-value,
+[data-theme='dark'] .login-box h2,
+[data-theme='dark'] .signup-card h2,
+[data-theme='dark'] .form-group label,
+[data-theme='dark'] .signup-card label,
+[data-theme='dark'] .ehome-hero h1,
+[data-theme='dark'] .section-title,
+[data-theme='dark'] .feature-title,
+[data-theme='dark'] .howworks-section h2,
+[data-theme='dark'] .howworks-card b,
+[data-theme='dark'] .profile-name-display,
+[data-theme='dark'] .profile-modal-title,
+[data-theme='dark'] .error-title,
+[data-theme='dark'] .profile-info-text,
+[data-theme='dark'] .profile-project-item,
+[data-theme='dark'] .jir-info-val {
+  color: var(--text-primary) !important;
+}
+
+/* ── 5. Consolidated Muted Text Rules (var(--text-secondary)) ── */
+[data-theme='dark'] p,
+[data-theme='dark'] li,
+[data-theme='dark'] .jir-meta-item,
+[data-theme='dark'] .rresult-location,
+[data-theme='dark'] .user-email,
+[data-theme='dark'] .detail-item,
+[data-theme='dark'] .modal-company,
+[data-theme='dark'] .modal-description,
+[data-theme='dark'] .apply-field label,
+[data-theme='dark'] .modal-label,
+[data-theme='dark'] .subtitle,
+[data-theme='dark'] .register-link,
+[data-theme='dark'] .ehome-nav a,
+[data-theme='dark'] .ehome-hero p,
+[data-theme='dark'] .feature-desc,
+[data-theme='dark'] .howworks-lead,
+[data-theme='dark'] .howworks-card p,
+[data-theme='dark'] .about-text,
+[data-theme='dark'] .field label,
+[data-theme='dark'] .back-to-profile-btn,
+[data-theme='dark'] .message,
+[data-theme='dark'] .no-notifications p,
+[data-theme='dark'] .profile-email-display,
+[data-theme='dark'] .profile-back-button,
+[data-theme='dark'] .profile-info-label,
+[data-theme='dark'] .profile-modal-text,
+[data-theme='dark'] .error-message,
+[data-theme='dark'] .result-job,
+[data-theme='dark'] .score-label,
+[data-theme='dark'] .result-comments,
+[data-theme='dark'] .jir-info-label {
+  color: var(--text-secondary) !important;
+}
+
+/* ── 6. Status-Specific & Accent Color Badges ── */
+[data-theme='dark'] .company-tagline,
+[data-theme='dark'] .company-logo-badge,
+[data-theme='dark'] .tag,
+[data-theme='dark'] .modern-job-type,
+[data-theme='dark'] .jir-toggle,
+[data-theme='dark'] .rresult-badge {
+  color: var(--color-primary) !important;
+}
+
+[data-theme='dark'] .ats-badge.pending,
+[data-theme='dark'] .status-tag.pending,
+[data-theme='dark'] .status-pending,
+[data-theme='dark'] .jir-status.status-pending {
+  background: #451a03 !important; /* deep amber bg */
+  color: #fbbf24 !important;      /* gold-yellow text */
+}
+
+[data-theme='dark'] .ats-badge.shortlisted,
+[data-theme='dark'] .ats-badge.selected,
+[data-theme='dark'] .status-tag.shortlisted,
+[data-theme='dark'] .status-selected,
+[data-theme='dark'] .jir-status.status-selected {
+  background: #064e3b !important; /* deep green bg */
+  color: #34d399 !important;      /* emerald text */
+}
+
+[data-theme='dark'] .ats-badge.rejected,
+[data-theme='dark'] .status-rejected,
+[data-theme='dark'] .jir-status.status-rejected {
+  background: #7f1d1d !important; /* deep red bg */
+  color: #fca5a5 !important;      /* light red text */
+}
+
+/* ── 7. Specific Component Interactive Behaviors ── */
+[data-theme='dark'] .resume-btn,
+[data-theme='dark'] .jir-resume-btn,
+[data-theme='dark'] .modern-view-btn {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+[data-theme='dark'] .resume-btn:hover,
+[data-theme='dark'] .jir-resume-btn:hover,
+[data-theme='dark'] .modern-view-btn:hover,
+[data-theme='dark'] .skill-tag:hover,
+[data-theme='dark'] .pagination-btn:hover:not(:disabled),
+[data-theme='dark'] .cancel-btn:hover,
+[data-theme='dark'] .back-to-profile-btn:hover,
+[data-theme='dark'] .profile-back-button:hover,
+[data-theme='dark'] .profile-modal-btn-cancel:hover,
+[data-theme='dark'] .error-btn-secondary:hover {
+  background: var(--border-color) !important;
+}
+
+[data-theme='dark'] .btn-cancel:hover,
+[data-theme='dark'] .skip-btn:hover,
+[data-theme='dark'] .upload-box:hover {
+  background: var(--bg-tertiary) !important;
+}
+
+[data-theme='dark'] .modern-job-footer,
+[data-theme='dark'] .card-actions {
+  border-top-color: var(--border-color) !important;
+}
+
+[data-theme='dark'] .modern-delete-btn {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme='dark'] .howworks-card {
+  border-left: 4px solid var(--color-primary) !important;
+}
+
+[data-theme='dark'] .ehome-nav a:hover {
+  color: var(--color-primary) !important;
+}
+
+[data-theme='dark'] .ehome-header {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* Chat Bubbles Transcripts overrides inside evaluations */
+[data-theme='dark'] .jir-chat-container {
+  background: var(--bg-primary) !important;
+  border-color: var(--border-color) !important;
+}
+[data-theme='dark'] .chat-candidate .jir-chat-bubble {
+  background: #0369a1 !important;
+  border-color: #0c4a6e !important;
+  color: #f0f9ff !important;
+}
+[data-theme='dark'] .chat-assistant .jir-chat-bubble {
+  background: #6b21a8 !important;
+  border-color: #581c87 !important;
+  color: #faf5ff !important;
+}
+[data-theme='dark'] .chat-system .jir-chat-bubble {
+  background: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Edit Profile autofill and focus specifics */
+[data-theme='dark'] .form-group input,
+[data-theme='dark'] .form-group textarea {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-primary) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+}
+[data-theme='dark'] .form-group input:focus,
+[data-theme='dark'] .form-group textarea:focus {
+  border-color: var(--color-primary) !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-primary) inset, 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
+}
+[data-theme='dark'] .form-group input:-webkit-autofill,
+[data-theme='dark'] .form-group textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-primary) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+}
+
+/* Notifications Glassmorphic icon overlays */
+[data-theme='dark'] .icon.blue {
+  background: rgba(99, 102, 241, 0.15) !important;
+  color: #818cf8 !important;
+}
+[data-theme='dark'] .icon.green {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #34d399 !important;
+}
+[data-theme='dark'] .icon.red {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #f87171 !important;
+}
+[data-theme='dark'] .icon.gold {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: #fbbf24 !important;
+}
+[data-theme='dark'] .icon.gray {
+  background: rgba(100, 116, 139, 0.15) !important;
+  color: #94a3b8 !important;
+}
+
+/* Profile specific box styles */
+[data-theme='dark'] .profile-pic-image {
+  border-color: var(--border-color) !important;
+}
+[data-theme='dark'] .profile-info-box:hover {
+  background: var(--bg-primary) !important;
+}
+[data-theme='dark'] .profile-skill-tag:hover {
+  background: var(--color-primary) !important;
+  color: white !important;
+}
+
+/* Results metrics highlight text-colors */
+[data-theme='dark'] .score-value {
+  color: var(--color-success) !important;
+}
+
+/* Candidate details info dividers */
+[data-theme='dark'] .jir-info-row,
+[data-theme='dark'] .jir-info-block h4 {
+  border-bottom-color: var(--border-color) !important;
 }

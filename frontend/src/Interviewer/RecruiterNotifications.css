@@ -115,3 +115,54 @@
     font-size: 1.7rem;
   }
 }
+
+/* ── Dynamic States ── */
+.notifications-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  color: #6b7280;
+}
+
+.notifications-loading .spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #8b5cf6;
+  border-radius: 50%;
+  animation: spin-notif 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin-notif {
+  to { transform: rotate(360deg); }
+}
+
+.no-notifications {
+  text-align: center;
+  padding: 50px 20px;
+  background: #f9fafb;
+  border: 2px dashed #e5e7eb;
+  border-radius: 12px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.notification-message {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.notification-item.read {
+  opacity: 0.75;
+  background: #f9fafb;
+  border-color: #f1f5f9;
+}
+
+.notification-item.read:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  border-color: #e5e7eb;
+}

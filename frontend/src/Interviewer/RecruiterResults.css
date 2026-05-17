@@ -24,8 +24,21 @@
   margin: 0;
 }
 
+.rresults-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rresults-search-icon {
+  position: absolute;
+  left: 14px;
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
 .rresults-search {
-  padding: 0.65rem 1.1rem;
+  padding: 0.65rem 1.1rem 0.65rem 2.4rem;
   border-radius: 999px;
   border: 1px solid #e5e7eb;
   background: #f9fafb;
@@ -172,4 +185,50 @@
 
 .rresults-empty small {
   font-size: 0.85rem;
+}
+
+/* ── Inline vector styling ── */
+.card-location-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  position: relative;
+  top: -1px;
+  color: #9ca3af;
+}
+
+.view-arrow {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 4px;
+  position: relative;
+  top: -1px;
+  transition: transform 0.2s ease;
+}
+
+.rresult-card:hover .view-arrow {
+  transform: translateX(4px);
+}
+
+/* ── Tablet and Mobile Responsiveness ── */
+@media (max-width: 768px) {
+  .rresults-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  
+  .rresults-search-wrapper {
+    width: 100%;
+  }
+  
+  .rresults-search {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .rresults-grid {
+    grid-template-columns: 1fr;
+  }
 }

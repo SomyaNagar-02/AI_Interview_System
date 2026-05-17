@@ -8,7 +8,7 @@ import { generateVapiJwt } from "../utils/vapiJwt.js";
 import {GoogleGenAI} from '@google/genai';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY});
-const model = ai.models.get({ model: "gemini-2.0-flash" });
+const model = ai.models.get({ model: "gemini-2.5-flash" });
 export const getVapiJwt = async (req, res) => {
   const vapiJwt = generateVapiJwt();
   res.status(200).json({ vapiJwt });
@@ -101,7 +101,7 @@ try {
     `;
 
     const result = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
       contents: [{ role: "user", parts: [{ text: prompt }] }],
     });
 
@@ -202,7 +202,7 @@ export const getResultsByJob = asyncHandler(async (req, res) => {
       const application = await Application.findOne({
         jobId,
         applicantId: iv.applicantId._id
-      }).select("aiScore interviewResult atsScore");
+      }).select("aiScore interviewResult atsScore resumeUrl");
 
       return {
         interviewId: iv._id,
@@ -211,7 +211,9 @@ export const getResultsByJob = asyncHandler(async (req, res) => {
         aiScore: application?.aiScore ?? null,
         interviewResult: application?.interviewResult ?? "pending",
         atsScore: application?.atsScore ?? null,
+        resumeUrl: application?.resumeUrl || null,
         aiSummary: iv.aiSummary || "No summary available.",
+        fullTranscript: iv.fullTranscript || "No transcript available.",
         durationSeconds: iv.durationSeconds,
         completedAt: iv.createdAt,
       };

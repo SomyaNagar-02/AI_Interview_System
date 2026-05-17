@@ -268,3 +268,251 @@
   .jir-scores { gap: 12px; }
   .jir-toggle { margin-left: 0; width: 100%; text-align: center; }
 }
+
+/* ── Transcript / Chat Bubbles ── */
+.jir-transcript-block {
+  margin-top: 20px;
+}
+
+.jir-transcript-block h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #374151;
+  margin: 0 0 12px;
+}
+
+.jir-chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.jir-chat-bubble-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.jir-chat-speaker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 4px;
+  padding: 0 4px;
+}
+
+.jir-chat-bubble {
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.jir-chat-bubble p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0;
+  color: inherit;
+}
+
+/* Candidate Bubble Styles */
+.chat-candidate {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.chat-candidate .jir-chat-speaker {
+  color: #3b82f6;
+}
+
+.chat-candidate .jir-chat-bubble {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-bottom-right-radius: 2px;
+  border: 1px solid #bae6fd;
+}
+
+/* Assistant Bubble Styles */
+.chat-assistant {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.chat-assistant .jir-chat-speaker {
+  color: #7c3aed;
+}
+
+.chat-assistant .jir-chat-bubble {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border-bottom-left-radius: 2px;
+  border: 1px solid #e9d5ff;
+}
+
+/* System/Info Styles */
+.chat-system {
+  align-self: center;
+  max-width: 100%;
+  text-align: center;
+}
+
+.chat-system .jir-chat-speaker {
+  display: none;
+}
+
+.chat-system .jir-chat-bubble {
+  background: #f1f5f9;
+  color: #64748b;
+  font-style: italic;
+  border: 1px dashed #cbd5e1;
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+
+/* ── Details Grid & Candidate Info ── */
+.jir-details-top-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.jir-info-block {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.jir-info-block h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #374151;
+  margin: 0 0 12px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 6px;
+}
+
+.jir-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.jir-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  border-bottom: 1px dashed #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.jir-info-label {
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.jir-info-val {
+  font-weight: 500;
+  color: #111827;
+  text-align: right;
+  word-break: break-all;
+}
+
+.highlight-score {
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.jir-resume-btn {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  text-align: center;
+}
+
+.jir-resume-btn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+@media (max-width: 768px) {
+  .jir-details-top-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ── Dynamic Result Card Selection Status Styling ── */
+.jir-card-selected,
+.jir-card-completed {
+  border-left: 5px solid #10b981 !important; /* Green Left Border */
+  background: #f0fdf4 !important; /* Light Green tint background */
+  transition: all 0.25s ease;
+}
+
+.jir-card-selected:hover,
+.jir-card-completed:hover {
+  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.14) !important;
+}
+
+.jir-card-rejected {
+  border-left: 5px solid #ef4444 !important; /* Red Left Border */
+  background: #fef2f2 !important; /* Light Red tint background */
+  transition: all 0.25s ease;
+}
+
+.jir-card-rejected:hover {
+  box-shadow: 0 10px 24px rgba(239, 68, 68, 0.14) !important;
+}
+
+/* ── Dynamic Icons Alignment ── */
+.jir-back-icon,
+.jir-meta-icon,
+.jir-section-title-icon,
+.jir-resume-btn-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  position: relative;
+  top: -1px;
+}
+
+.jir-back-icon {
+  margin-right: 8px;
+}
+
+.jir-empty-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 12px;
+  color: #9ca3af;
+}

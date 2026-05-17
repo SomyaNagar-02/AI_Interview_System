@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios';
 import "./Signup.css";
+import { useApp } from "../context/AppContext";
 
 export default function Signup() {
-    const navigation=useNavigate();
+  const { user, setUser } = useApp();
+  const navigation=useNavigate();
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
     role: "",
   });
+
+  // Immediate Auto-Redirection for already logged-in users
+  useEffect(() => {
+    if (user) {
+      if (user.role === 'recruiter') {
+        navigation('/recruiter');
+      } else if (user.role === 'applicant') {
+        navigation('/ApplicantDashboard');
+      }
+    }
+  }, [user, navigation]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -32,16 +46,20 @@ const handlesubmit = async (e) => {
 
     console.log("Signup success:", res.data);
 
+    const registeredUser = res.data.data.user;
     
-    localStorage.setItem("user", JSON.stringify(res.data.data.user));
+    localStorage.setItem("user", JSON.stringify(registeredUser));
     localStorage.setItem("token", res.data.data.accessToken);
+    localStorage.setItem("accessToken", res.data.data.accessToken);
+
+    // Update global context state so that it persists and propagates instantly
+    setUser(registeredUser);
   
 
     // redirect based on role
     if (form.role === "recruiter") {
       navigation("/register");  // Recruiter Profile form
-    }
-    if (form.role === "applicant") {
+    } else if (form.role === "applicant") {
       navigation("/applicantregister");
     }
 

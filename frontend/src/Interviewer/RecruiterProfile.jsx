@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaTrash, FaGlobe, FaMapMarkerAlt, FaUsers, FaCalendarAlt, FaLinkedin, FaTwitter } from "react-icons/fa";
 
+const ensureAbsoluteUrl = (url) => {
+  if (!url) return "";
+  return url.startsWith("http://") || url.startsWith("https://") ? url : `https://${url}`;
+};
+
 export default function RecruiterProfile() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
@@ -182,7 +187,7 @@ export default function RecruiterProfile() {
                   {isEditing ? (
                     <input name="website" value={editForm.website} onChange={handleChange} />
                   ) : (
-                    <a href={profile.website} target="_blank" rel="noreferrer">{profile.website}</a>
+                    <a href={ensureAbsoluteUrl(profile.website)} target="_blank" rel="noreferrer">{profile.website}</a>
                   )}
                 </div>
               </div>
@@ -240,7 +245,7 @@ export default function RecruiterProfile() {
                   {isEditing ? (
                     <input name="linkedin" value={editForm.linkedin} onChange={handleChange} />
                   ) : (
-                    profile.linkedin ? <a href={profile.linkedin} target="_blank" rel="noreferrer">View Profile</a> : "Not added"
+                    profile.linkedin ? <a href={ensureAbsoluteUrl(profile.linkedin)} target="_blank" rel="noreferrer">View Profile</a> : "Not added"
                   )}
                 </div>
               </div>
@@ -252,7 +257,7 @@ export default function RecruiterProfile() {
                   {isEditing ? (
                     <input name="twitter" value={editForm.twitter} onChange={handleChange} />
                   ) : (
-                    profile.twitter ? <a href={profile.twitter} target="_blank" rel="noreferrer">View Profile</a> : "Not added"
+                    profile.twitter ? <a href={ensureAbsoluteUrl(profile.twitter)} target="_blank" rel="noreferrer">View Profile</a> : "Not added"
                   )}
                 </div>
               </div>

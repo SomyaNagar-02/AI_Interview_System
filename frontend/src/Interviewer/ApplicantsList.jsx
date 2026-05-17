@@ -2,6 +2,7 @@ import "./ApplicantsList.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { FiFileText } from "react-icons/fi";
 
 export default function ApplicantsList() {
   const { jobId } = useParams();
@@ -103,9 +104,8 @@ export default function ApplicantsList() {
                   rel="noopener noreferrer"
                   className="resume-btn"
                 >
-                  📄 View Resume
+                  <FiFileText className="btn-icon" /> View Resume
                 </a>
-                <button className="shortlist-btn">Shortlist</button>
               </div>
             </div>
           ))}

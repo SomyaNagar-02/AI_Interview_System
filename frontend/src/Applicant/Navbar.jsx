@@ -1,10 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { FiSun, FiMoon } from "react-icons/fi";
+import { useApp } from "../context/AppContext.jsx";
 import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { logout, darkMode, toggleDarkMode } = useApp();
   const API_BASE_URL = "/api/v1";
 
 
@@ -18,19 +21,15 @@ const Navbar = () => {
         withCredentials: true
       });
 
-      // Clear local storage
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      localStorage.removeItem("role");
+      // Clear local storage & global app context
+      logout();
       
       // Redirect to login
       navigate("/login");
     } catch (error) {
       console.error("Logout error:", error);
-      // Even if API fails, clear local storage and redirect
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      localStorage.removeItem("role");
+      // Even if API fails, clear local storage & global app context and redirect
+      logout();
       navigate("/login");
     }
   };
@@ -43,11 +42,16 @@ const Navbar = () => {
         </h1>
 
         <div className="nav-links">
-          <a href="/ApplicantDashboard" className="nav-link">Jobs</a>
-          {/* <a href="/my-applications" className="nav-link">My Applications</a> */}
-          <a href="/notifications" className="nav-link">Notifications</a>
-          <a href="/profile" className="nav-link">Profile</a>
+          <Link to="/ApplicantDashboard" className="nav-link">Jobs</Link>
+          {/* <Link to="/my-applications" className="nav-link">My Applications</Link> */}
+          <Link to="/notifications" className="nav-link">Notifications</Link>
+          <Link to="/profile" className="nav-link">Profile</Link>
           
+          {/* Theme Toggler */}
+          <button onClick={toggleDarkMode} className="theme-toggle-btn" aria-label="Toggle Theme">
+            {darkMode ? <FiSun className="theme-icon" /> : <FiMoon className="theme-icon" />}
+          </button>
+
           <button onClick={handleLogout} className="logout-btn">
             <svg className="logout-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

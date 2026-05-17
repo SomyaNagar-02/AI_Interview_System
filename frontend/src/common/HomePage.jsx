@@ -1,7 +1,8 @@
 import React from "react";
 import "./HomePage.css";
 import logo from '../assets/logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { useApp } from "../context/AppContext";
 
 
 const featuresData = [
@@ -44,18 +45,40 @@ const featuresData = [
 ];
 
 export default function HomePage() {
-  const navigate=useNavigate();
+  const { user } = useApp();
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    if (user) {
+      if (user.role === 'recruiter') {
+        navigate('/recruiter');
+      } else {
+        navigate('/ApplicantDashboard');
+      }
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <div className="ehome-root">
       <header className="ehome-header">
         {/* <img src={logo} alt="Logo" className="ehome-logo" /> */}
-        <h1 className="ehome-logo">SelectX</h1>
+        <h1 className="ehome-logo" style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>SelectX</h1>
         <nav className="ehome-nav">
           <a href="#features">Features</a>
           <a href="#how-it-works">Working</a>
           <a href="#about">About</a>
           {/* <a href="#contact">Contact</a> */}
-          <a href="/login" className="login-btn">Login</a>
+          {user ? (
+            <Link to={user.role === "recruiter" ? "/recruiter" : "/ApplicantDashboard"} className="login-btn">
+              Dashboard
+            </Link>
+          ) : (
+            <Link to="/login" className="login-btn">
+              Login
+            </Link>
+          )}
         </nav>
       </header>
 
@@ -69,7 +92,7 @@ export default function HomePage() {
             Automate your recruitment pipeline and empower candidates with personalized AI interviews and insights.
           </p>
           
-          <button className="signup-btn" onClick={() => navigate('/ApplicantDashboard')}>Get Started</button>
+          <button className="signup-btn" onClick={handleGetStarted}>Get Started</button>
         </section>
 
         <section id="features" className="ehome-section">

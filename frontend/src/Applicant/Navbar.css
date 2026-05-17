@@ -1,6 +1,6 @@
 .app-navbar {
   width: 100%;
-  background: var(--bg-header);
+  background: var(--bg-secondary);
   padding: 0.75rem 2rem;
   border-bottom: 1px solid var(--border-color);
   display: flex;
@@ -25,7 +25,7 @@
 .nav-logo {
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--primary);
+  color: var(--color-primary);
   margin: 0;
   cursor: pointer;
   transition: all 0.3s;
@@ -44,7 +44,7 @@
 
 .nav-link {
   text-decoration: none;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.2s;
@@ -53,7 +53,7 @@
 }
 
 .nav-link:hover {
-  color: var(--text-main);
+  color: var(--text-primary);
   background: rgba(0, 0, 0, 0.05);
 }
 
@@ -67,7 +67,7 @@
   gap: 0.5rem;
   padding: 0.6rem 1.25rem;
   background: transparent;
-  color: var(--danger);
+  color: var(--color-danger);
   border: 1px solid rgba(239, 68, 68, 0.2);
   border-radius: 8px;
   font-size: 0.9rem;
@@ -79,7 +79,7 @@
 
 .logout-btn:hover {
   background: rgba(239, 68, 68, 0.1);
-  border-color: var(--danger);
+  border-color: var(--color-danger);
 }
 
 .logout-icon {
@@ -90,6 +90,33 @@
 /* Ensure content is not hidden behind fixed navbar */
 .dashboard-wrapper {
   padding-top: 5rem;
+}
+
+/* Theme Toggle Button Style */
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  transition: all 0.25s ease;
+  outline: none;
+  margin-left: 0.5rem;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+.theme-icon {
+  font-size: 1.25rem;
+  display: block;
 }
 
 @media (max-width: 768px) {
@@ -106,7 +133,13 @@
     padding: 0.5rem 0.75rem;
   }
   
+  .theme-toggle-btn {
+    padding: 6px;
+    margin-left: 0;
+  }
+  
   .logout-btn {
     padding: 0.5rem 0.75rem;
+    margin-left: 0;
   }
 }

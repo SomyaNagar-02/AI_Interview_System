@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./RecruiterResults.css";
+import { FiSearch, FiFileText, FiMapPin, FiArrowRight } from "react-icons/fi";
 
 export default function RecruiterResults() {
   const [jobs, setJobs] = useState([]);
@@ -40,13 +41,16 @@ export default function RecruiterResults() {
             Click on a job posting to view all candidate scores & decisions.
           </p>
         </div>
-        <input
-          type="text"
-          className="rresults-search"
-          placeholder="🔍 Search job title..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <div className="rresults-search-wrapper">
+          <FiSearch className="rresults-search-icon" />
+          <input
+            type="text"
+            className="rresults-search"
+            placeholder="Search job title..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
 
       {loading ? (
@@ -56,7 +60,7 @@ export default function RecruiterResults() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="rresults-empty">
-          <span className="rresults-empty-icon">📋</span>
+          <span className="rresults-empty-icon"><FiFileText /></span>
           <p>No completed interviews found yet.</p>
           <small>Results will appear here once candidates finish their AI interviews.</small>
         </div>
@@ -76,9 +80,13 @@ export default function RecruiterResults() {
               </div>
               <h2 className="rresult-job-title">{job.title}</h2>
               <p className="rresult-company">{job.companyName}</p>
-              <p className="rresult-location">📍 {job.location || "Remote"}</p>
+              <p className="rresult-location">
+                <FiMapPin className="card-location-icon" /> {job.location || "Remote"}
+              </p>
               <div className="rresult-footer">
-                <span className="rresult-view">View Results →</span>
+                <span className="rresult-view">
+                  View Results <FiArrowRight className="view-arrow" />
+                </span>
               </div>
             </Link>
           ))}

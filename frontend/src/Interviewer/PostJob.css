@@ -270,6 +270,40 @@
   cursor: not-allowed;
 }
 
+/* Column Wrappers Default (Mobile Stack) */
+.post-job-form-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.post-job-form-left,
+.post-job-form-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* Responsive columns for wider screens (Desktops) */
+@media (min-width: 992px) {
+  .post-job-container {
+    max-width: 1050px;
+    padding: 3rem;
+  }
+  
+  .post-job-form-columns {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 2.5rem;
+  }
+  
+  .post-job-form-right .post-job-section-label {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   .post-job-row { grid-template-columns: 1fr; }

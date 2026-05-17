@@ -1,10 +1,12 @@
 // src/pages/Login.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
+import { useApp } from '../context/AppContext';
 
 const Login = () => {
+  const { user, setUser } = useApp();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -12,6 +14,17 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Immediate Auto-Redirection for already logged-in users
+  useEffect(() => {
+    if (user) {
+      if (user.role === 'recruiter') {
+        navigate('/recruiter');
+      } else if (user.role === 'applicant') {
+        navigate('/ApplicantDashboard');
+      }
+    }
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -37,13 +50,13 @@ const Login = () => {
 
       console.log("Login Response:", response.data); // Debug log
 
-      const { user, accessToken } = response.data.data;
+      const { user: loggedInUser, accessToken } = response.data.data;
       
-      console.log("User:", user); // Debug log
+      console.log("User:", loggedInUser); // Debug log
       console.log("Token:", accessToken); // Debug log
       
       // Store user info and token in localStorage
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(loggedInUser));
       localStorage.setItem('token', accessToken); // Changed from 'accessToken' to 'token'
       localStorage.setItem('accessToken', accessToken); // Keep this too for backward compatibility
       
@@ -51,10 +64,13 @@ const Login = () => {
       console.log("- token:", localStorage.getItem('token'));
       console.log("- user:", localStorage.getItem('user'));
 
+      // Update global context state so that it persists and propagates instantly
+      setUser(loggedInUser);
+
       // Redirect based on role
-      if (user.role === 'recruiter') {
+      if (loggedInUser.role === 'recruiter') {
         navigate('/recruiter');
-      } else if (user.role === 'applicant') {
+      } else if (loggedInUser.role === 'applicant') {
         navigate('/ApplicantDashboard');
       } else {
         setError('Invalid user role');

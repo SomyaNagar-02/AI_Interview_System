@@ -243,3 +243,37 @@
   border: 2px dashed #e5e7eb;
   color: #6b7280;
 }
+
+/* ── Tablet and Mobile Responsiveness ── */
+@media (max-width: 768px) {
+  .applicant-list-wrapper {
+    padding: 1.5rem 1rem;
+  }
+  
+  .applicant-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .ats-badge {
+    align-self: flex-start;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 8px;
+  }
+  
+  .resume-btn,
+  .shortlist-btn {
+    width: 100%;
+  }
+}
