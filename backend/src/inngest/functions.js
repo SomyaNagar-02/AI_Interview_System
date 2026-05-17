@@ -15,8 +15,10 @@ import Interview from "../models/interview.models.js";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export const processApplication = inngest.createFunction(
-  { id: "process-application" },
-  { event: "application/submitted" },
+  { 
+    id: "process-application",
+    triggers: [{ event: "application/submitted" }]
+  },
   async ({ event, step }) => {
     const { userId, jobId, jobTitle, resumeId } = event.data;
 
